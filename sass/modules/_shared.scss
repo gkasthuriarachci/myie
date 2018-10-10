@@ -1,0 +1,72 @@
+.nav-tabs {
+  margin-bottom: 1rem;
+}
+
+.label {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  overflow: -moz-scrollbars-vertical;
+  overflow-y: scroll;
+}
+
+.button-group > .row {
+  min-height: 2.5rem !important;
+  -ms-flex-align: center !important;
+  align-items: center !important;
+}
+
+.invalid-feedback {
+  display: block;
+}
+
+label:not(.form-check-label),
+.label:not(.form-check-label) {
+  font-weight: bold;
+}
+
+.balance-card {
+  background-color: darken($card-bg, 5%);
+  border-color: darken($card-bg, 10%);
+}
+
+.content-container {
+  width: 100%;
+  position: relative;
+  margin-top: 10px;
+}
+
+.right-container {
+  background-color: darken($body-bg, 5%);
+}
+
+@media (min-width: 992px) {
+  .left-container {
+    width: calc(100% - 315px); /* adjust */
+    height: 100%;
+  }
+  .right-container {
+    width: 300px; /* adjust */
+    height: 100%;
+    position: absolute;
+    right: 15px;
+    top: 0;
+  }
+}
+
+.card .nav-link {
+  padding: 20px;
+}
+
+.logo-svg {
+  height: 100px;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}

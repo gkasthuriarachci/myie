@@ -1,0 +1,31 @@
+{
+  "name": "myie",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@myie/interact": "^1.0.25",
+    "@myie/interact-connect-dom": "^1.0.1",
+    "@myie/interact-dom": "^1.0.25",
+    "@myie/interact-sass": "^1.0.3",
+    "react": "^16.5.2",
+    "react-datetime": "^2.15.0",
+    "react-dom": "^16.5.2",
+    "react-icons": "^3.1.0",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "1.1.5",
+    "reactstrap": "^6.4.0",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0"
+  },
+  "scripts": {
+    "start": "interact-cli compile && react-app-rewired start",
+    "build": "interact-cli compile && react-app-rewired build",
+    "test": "interact-cli compile && react-app-rewired test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "react-app-rewired": "^1.6.2",
+    "redux-logger": "^3.0.6"
+  }
+}

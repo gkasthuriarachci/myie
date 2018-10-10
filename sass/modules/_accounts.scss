@@ -1,0 +1,27 @@
+h3 .badge.round,
+.h3 .badge.round {
+  margin-top: 0.3rem;
+  padding: 0.35em 0.25em;
+  border-radius: 2.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.list-mode {
+  column-count: 1;
+}
+
+.grid-mode {
+  column-count: 1;
+}
+
+@media (min-width: 768px) {
+  .grid-mode {
+    column-count: 2;
+  }
+}
+
+.transaction-card {
+  margin-bottom: 0.8rem;
+  border-bottom: 1px solid $card-border-color;
+}
