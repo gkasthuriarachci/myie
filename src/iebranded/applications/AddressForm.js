@@ -8,38 +8,42 @@ class AddressForm extends React.Component {
     }
 
     render() {
+        const fomrOne = this.props.fomrOne
+        const formTwo = this.props.formTwo
+        const fomrThree = this.props.fomrThree
+        const formFour = this.props.formFour
         return (
             <div>
                 <Row>
                     <Col>
                         <Collapse isOpen={this.props.manual_address}>
                             <FormGroup>
-                                <Text subLabel="Flat number (if applicable)" id="flat_number" field="flat_number" onChange={(e)=> this.props.onChange('custom_address_details_form', e)} onBlur={(e)=> this.props.onBlur('custom_address_details_form', e)} validation={this.props.custom_address_details_form.flat_number} />
+                                <Text subLabel="Flat number (if applicable)" id="flat_number" field="flat_number" onChange={(e)=> this.props.onChange(formTwo, e)} onBlur={(e)=> this.props.onBlur(formTwo, e)} validation={this.props.custom_address_details_form.flat_number} />
                             </FormGroup>
                         </Collapse>
                         <FormGroup>
-                            <Text subLabel="House number (if applicable)" id="house_number" field="house_number" onChange={(e)=> this.props.onChange('address_details_form', e)} onBlur={(e)=> this.props.onBlur('address_details_form', e)} validation={this.props.address_details_form.house_number} />
+                            <Text subLabel="House number (if applicable)" id="house_number" field="house_number" onChange={(e)=> this.props.onChange(fomrOne, e)} onBlur={(e)=> this.props.onBlur(fomrOne, e)} validation={this.props.address_details_form.house_number} />
                         </FormGroup>
                         <p>and / or</p>
                         <FormGroup>
-                            <Text subLabel="House name (if applicable)" id="house_name" field="house_name" onChange={(e)=> this.props.onChange('address_details_form', e)} onBlur={(e)=> this.props.onBlur('address_details_form', e)} validation={this.props.address_details_form.house_name} />
+                            <Text subLabel="House name (if applicable)" id="house_name" field="house_name" onChange={(e)=> this.props.onChange(fomrOne, e)} onBlur={(e)=> this.props.onBlur(fomrOne, e)} validation={this.props.address_details_form.house_name} />
                         </FormGroup>
                         <Collapse isOpen={this.props.manual_address}>
                             <FormGroup>
-                                <Text subLabel="Street" id="street" field="street" onChange={(e)=> this.props.onChange('custom_address_details_form', e)} onBlur={(e)=> this.props.onBlur('custom_address_details_form', e)} validation={this.props.custom_address_details_form.street} />
+                                <Text subLabel="Street" id="street" field="street" onChange={(e)=> this.props.onChange(formTwo, e)} onBlur={(e)=> this.props.onBlur(formTwo, e)} validation={this.props.custom_address_details_form.street} />
                             </FormGroup>
                             <FormGroup>
-                                <Text subLabel="Village/District (optional)" id="district" field="district" onChange={(e)=> this.props.onChange('custom_address_details_form', e)} onBlur={(e)=> this.props.onBlur('custom_address_details_form', e)} validation={this.props.custom_address_details_form.district} />
+                                <Text subLabel="Village/District (optional)" id="district" field="district" onChange={(e)=> this.props.onChange(formTwo, e)} onBlur={(e)=> this.props.onBlur(formTwo, e)} validation={this.props.custom_address_details_form.district} />
                             </FormGroup>
                             <FormGroup>
-                                <Text subLabel="Town/City" id="city" field="city" onChange={(e)=> this.props.onChange('custom_address_details_form', e)} onBlur={(e)=> this.props.onBlur('custom_address_details_form', e)} validation={this.props.custom_address_details_form.city} />
+                                <Text subLabel="Town/City" id="city" field="city" onChange={(e)=> this.props.onChange(formTwo, e)} onBlur={(e)=> this.props.onBlur(formTwo, e)} validation={this.props.custom_address_details_form.city} />
                             </FormGroup>
                             <FormGroup>
-                                <Text subLabel="County (optional)" id="county" field="county" onChange={(e)=> this.props.onChange('custom_address_details_form', e)} onBlur={(e)=> this.props.onBlur('custom_address_details_form', e)} validation={this.props.custom_address_details_form.county} />
+                                <Text subLabel="County (optional)" id="county" field="county" onChange={(e)=> this.props.onChange(formTwo, e)} onBlur={(e)=> this.props.onBlur(formTwo, e)} validation={this.props.custom_address_details_form.county} />
                             </FormGroup>
                         </Collapse>
                         <FormGroup>
-                            <Text subLabel="Postcode" id="postcode" field="postcode" onChange={(e)=> this.props.onChange('address_details_form', e)} onBlur={(e)=> this.props.onBlur('address_details_form', e)} validation={this.props.address_details_form.postcode} />
+                            <Text subLabel="Postcode" id="postcode" field="postcode" onChange={(e)=> this.props.onChange(fomrOne, e)} onBlur={(e)=> this.props.onBlur(fomrOne, e)} validation={this.props.address_details_form.postcode} />
                         </FormGroup>
                         <Collapse isOpen={this.props.manual_address}>
                             <FormGroup>
@@ -54,7 +58,7 @@ class AddressForm extends React.Component {
                         <Collapse isOpen={this.props.residential_status}>
                             <FormGroup>
                                 <ButtonGroup>
-                                    <DropDown subLabel="Residential status" id="residential_status" field="residential_status" onChange={(e)=> this.props.onChange('residential_address_details_form', e)} onBlur={(e)=> this.props.onBlur('residential_address_details_form', e)} validation={this.props.residential_address_details_form.residential_status}>
+                                    <DropDown subLabel="Residential status" id="residential_status" field="residential_status" onChange={(e)=> this.props.onChange(fomrThree, e)} onBlur={(e)=> this.props.onBlur(fomrThree, e)} validation={this.props.residential_address_details_form.residential_status}>
                                         <option value="">(select one)</option>
                                         <option value="Owner">Owner</option>
                                         <option value="Tenant">Tenant</option>
@@ -64,13 +68,13 @@ class AddressForm extends React.Component {
                             <FormGroup>
                                 <p>When did you start living at your current address?</p>
                                 <ButtonGroup>
-                                    <DropDown id="living_month" field="living_month" onChange={(e)=> this.props.onChange('residential_address_details_form', e)} onBlur={(e)=> this.props.onBlur('residential_address_details_form', e)} validation={this.props.residential_address_details_form.living_month}>
+                                    <DropDown id="living_month" field="living_month" onChange={(e)=> this.props.onChange(fomrThree, e)} onBlur={(e)=> this.props.onBlur(fomrThree, e)} validation={this.props.residential_address_details_form.living_month}>
                                         <option value="">Month</option>
                                         <option value="1">1</option>
                                         
                                     </DropDown>
                                     {' '}
-                                    <DropDown id="living_year" field="living_year" onChange={(e)=> this.props.onChange('residential_address_details_form', e)} onBlur={(e)=> this.props.onBlur('residential_address_details_form', e)} validation={this.props.residential_address_details_form.living_year}>
+                                    <DropDown id="living_year" field="living_year" onChange={(e)=> this.props.onChange(fomrThree, e)} onBlur={(e)=> this.props.onBlur(fomrThree, e)} validation={this.props.residential_address_details_form.living_year}>
                                         <option value="">Year</option>
                                         <option value="1">1</option>
                                         
@@ -104,7 +108,7 @@ class AddressForm extends React.Component {
                         </Collapse>
                         <Collapse isOpen={this.props.select_address}>
                             <FormGroup>
-                                <TextArea rows={6} subLabel="Select an address" id="select_address" field="select_address" onBlur={(e)=> this.props.onBlur('select_address_details_form', e)}d validation={this.props.select_address_details_form.select_address} />
+                                <TextArea rows={6} subLabel="Select an address" id="select_address" field="select_address" onBlur={(e)=> this.props.onBlur(formFour, e)}d validation={this.props.select_address_details_form.select_address} />
                             </FormGroup>
                             {'If your address is not shown, please enter it manually'}
                         </Collapse>

@@ -25,7 +25,12 @@ class CreditCard extends React.Component {
             paying_by_debit: false,
 
             income_and_outgoings: false,
+
             employer_details: false,
+            employer_manual_address: false,
+            employer_select_address: false,
+            employer_residential_status: false,
+            employer_noAddressSelected: false,
 
             about_you_form: {
                 "title": {
@@ -261,6 +266,79 @@ class CreditCard extends React.Component {
                 }
             },
 
+            employer_address_details_form: {
+                "house_number": {
+                    rules: {
+                        
+                    }
+                },
+                "house_name": {
+                    rules: {
+                        
+                    }
+                },
+                "postcode": {
+                    rules: {
+                        required: { message: "Please enter your postcode" },
+                        format: { regex: /^[a-zA-Z0-9]{8}$/, message: "Please enter your postcode in a valid UK postcode format"}
+                    }
+                }
+            },
+
+            employer_custom_address_details_form: {
+                "flat_number": {
+                    rules: {
+                        
+                    }
+                },
+                "street": {
+                    rules: {
+                        required: { message: "Please enter the street name" }
+                    }
+                },
+                "district": {
+                    rules: {
+                        
+                    }
+                },
+                "city": {
+                    rules: {
+                        required: { message: "Please enter your town or city" }
+                    }
+                },
+                "county": {
+                    rules: {
+                        
+                    }
+                }
+            },
+
+            employer_residential_address_details_form: {
+                "residential_status": {
+                    rules: {
+                        required: { message: "Please tell us your residential status" }
+                    }
+                },
+                "living_month": {
+                    rules: {
+                        required: { message: "Please select the date when you started living there" }
+                    }
+                },
+                "living_year": {
+                    rules: {
+                        required: { message: "Please select the date when you started living there" }
+                    }
+                }
+            },
+
+            employer_select_address_details_form: {
+                "select_address": {
+                    rules: {
+                        
+                    }
+                }
+            },
+
             income_and_outgoings_form: {
                 "annual_income": {
                     rules: {
@@ -333,6 +411,36 @@ class CreditCard extends React.Component {
         }else{
             const noAddressSelected = true
             this.setState({ ...this.state, noAddressSelected })
+        }
+        
+    }
+
+    employerManualAddress = () => {
+        const employer_manual_address = true;
+        const employer_select_address = false
+        const employer_residential_status = true
+        this.setState({ ...this.state, employer_manual_address, employer_select_address, employer_residential_status });
+    }
+
+    employerSearchForAddress =() => {
+        const employer_manual_address = false;
+        const employer_select_address = false
+        const employer_residential_status = false
+        this.setState({ ...this.state, employer_manual_address, employer_select_address, employer_residential_status });
+    }
+
+    employerFindAddress = () => {
+        const employer_address_details_form = Validate.form(this.state.employer_address_details_form)
+        this.setState({ ...this.state, employer_address_details_form })
+
+        if(employer_address_details_form.approved){
+            const employer_manual_address = false
+            const employer_select_address = true
+            const employer_noAddressSelected = false
+            this.setState({ employer_manual_address, employer_select_address, employer_noAddressSelected });
+        }else{
+            const employer_noAddressSelected = true
+            this.setState({ ...this.state, employer_noAddressSelected })
         }
         
     }
@@ -437,6 +545,25 @@ class CreditCard extends React.Component {
                 const employer_details_form = FormUpdater.update(this.state.employer_details_form, e.target) 
                 this.setState({ ...this.state, employer_details_form })
                 return
+
+            case 'employer_address_details_form':
+                const employer_address_details_form = FormUpdater.update(this.state.employer_address_details_form, e.target)
+                this.setState({ ...this.state, employer_address_details_form })
+                return
+            case 'employer_custom_address_details_form':
+                const employer_custom_address_details_form = FormUpdater.update(this.state.employer_custom_address_details_form, e.target) 
+                this.setState({ ...this.state, employer_custom_address_details_form })
+                return
+            case 'employer_residential_address_details_form':
+                const employer_residential_address_details_form = FormUpdater.update(this.state.employer_residential_address_details_form, e.target) 
+                this.setState({ ...this.state, employer_residential_address_details_form })
+                return
+            case 'employer_select_address_details_form':
+                const employer_select_address_details_form = FormUpdater.update(this.state.employer_select_address_details_form, e.target) 
+                this.setState({ ...this.state, employer_select_address_details_form })
+                return
+            
+
             case 'income_and_outgoings_form':
                 const income_and_outgoings_form = FormUpdater.update(this.state.income_and_outgoings_form, e.target) 
                 this.setState({ ...this.state, income_and_outgoings_form })
@@ -483,6 +610,26 @@ class CreditCard extends React.Component {
                 const employer_details_form = FormUpdater.update(this.state.employer_details_form, e.target, true) 
                 this.setState({ ...this.state, employer_details_form })
                 return
+
+            case 'employer_address_details_form':
+                const employer_address_details_form = FormUpdater.update(this.state.employer_address_details_form, e.target, true)
+                this.setState({ ...this.state, employer_address_details_form })
+                return
+            case 'employer_custom_address_details_form':
+                const employer_custom_address_details_form = FormUpdater.update(this.state.employer_custom_address_details_form, e.target, true) 
+                this.setState({ ...this.state, employer_custom_address_details_form })
+                return
+            case 'employer_residential_address_details_form':
+                const employer_residential_address_details_form = FormUpdater.update(this.state.employer_residential_address_details_form, e.target, true) 
+                this.setState({ ...this.state, employer_residential_address_details_form })
+                return
+            case 'employer_select_address_details_form':
+                const employer_select_address_details_form = FormUpdater.update(this.state.employer_select_address_details_form, e.target, true) 
+                this.setState({ ...this.state, employer_select_address_details_form })
+                return
+
+
+
             case 'income_and_outgoings_form':
                 const income_and_outgoings_form = FormUpdater.update(this.state.income_and_outgoings_form, e.target, true) 
                 this.setState({ ...this.state, income_and_outgoings_form })
@@ -661,7 +808,12 @@ class CreditCard extends React.Component {
         
         const { your_finances_form } = this.state
         const { direct_debit_form } = this.state
-        const { employer_details_form } = this.state
+        
+        const { employer_address_details_form } = this.state
+        const { employer_custom_address_details_form } = this.state
+        const { employer_residential_address_details_form } = this.state
+        const { employer_select_address_details_form } = this.state
+        
         const { income_and_outgoings_form } = this.state
 
         const { optional_benefits_form } = this.state
@@ -866,18 +1018,22 @@ class CreditCard extends React.Component {
                                         
                                         <AddressForm 
                                             manual_address={this.state.manual_address} 
+                                            select_address={this.state.select_address}
+                                            residential_status={this.state.residential_status}
 
-                                            custom_address_details_form={custom_address_details_form} 
                                             address_details_form={address_details_form}
+                                            custom_address_details_form={custom_address_details_form} 
                                             residential_address_details_form={residential_address_details_form}
                                             select_address_details_form={select_address_details_form}
+
+                                            fomrOne={'address_details_form'}
+                                            formTwo={'custom_address_details_form'}
+                                            fomrThree={'residential_address_details_form'}
+                                            formFour={'select_address_details_form'}
 
                                             searchForAddress={this.searchForAddress}
                                             findAddress={this.findAddress}
                                             manualAddress={this.manualAddress}
-
-                                            select_address={this.state.select_address}
-                                            residential_status={this.state.residential_status}
 
                                             onChange={this.onChange}
                                             onBlur={this.onBlur}
@@ -1043,19 +1199,28 @@ class CreditCard extends React.Component {
                                         </FormGroup>
                                         <Collapse isOpen={this.state.employer_details}>
                                             <h2>Employer details</h2>
-                                            <FormGroup>
-                                                <Text subLabel="Employer's name" id="employer_name" field="employer_name" onChange={(e)=> this.onChange('employer_details_form', e)} onBlur={(e)=> this.onBlur('employer_details_form', e)} validation={employer_details_form.employer_name} />
-                                            </FormGroup>
-                                            <FormGroup>
-                                                <Text subLabel="Building number (if applicable)" id="building_number" field="building_number" onChange={(e)=> this.onChange('employer_details_form', e)} onBlur={(e)=> this.onBlur('employer_details_form', e)} validation={employer_details_form.building_number} />
-                                            </FormGroup>
-                                            <p>and / or</p>
-                                            <FormGroup>
-                                                <Text subLabel="Building name (if applicable)" id="building_name" field="building_name" onChange={(e)=> this.onChange('employer_details_form', e)} onBlur={(e)=> this.onBlur('employer_details_form', e)} validation={employer_details_form.building_name} />
-                                            </FormGroup>
-                                            <FormGroup>
-                                                <Text subLabel="Postcode" id="employer_postcode" field="employer_postcode" onChange={(e)=> this.onChange('employer_details_form', e)} onBlur={(e)=> this.onBlur('employer_details_form', e)} validation={employer_details_form.employer_postcode} />
-                                            </FormGroup>
+                                            <AddressForm 
+                                            manual_address={this.state.employer_manual_address} 
+                                            select_address={this.state.employer_select_address}
+                                            residential_status={this.state.employer_residential_status}
+                                            
+                                            address_details_form={employer_address_details_form}
+                                            custom_address_details_form={employer_custom_address_details_form} 
+                                            residential_address_details_form={employer_residential_address_details_form}
+                                            select_address_details_form={employer_select_address_details_form}
+
+                                            fomrOne={'employer_address_details_form'}
+                                            formTwo={'employer_custom_address_details_form'}
+                                            fomrThree={'employer_residential_address_details_form'}
+                                            formFour={'employer_select_address_details_form'}
+
+                                            searchForAddress={this.employerSearchForAddress}
+                                            findAddress={this.employerFindAddress}
+                                            manualAddress={this.employerManualAddress}
+
+                                            onChange={this.onChange}
+                                            onBlur={this.onBlur}
+                                        />
                                         </Collapse>
                                         <Collapse isOpen={this.state.income_and_outgoings}>
                                             <h2>Income and outgoings</h2>
