@@ -6,6 +6,32 @@ import { FaPencilAlt } from 'react-icons/fa';
 
 import AddressForm from './AddressForm'
 
+const FORM_TITLE = {
+    about_you_form: 'about_you_form',
+    your_finances_form: 'your_finances_form',
+    optional_benefits_form: 'optional_benefits_form',
+    section_five: 'section_five',
+
+    address_details_form: 'address_details_form',
+    custom_address_details_form: 'custom_address_details_form',
+    residential_address_details_form: 'residential_address_details_form',
+    select_address_details_form: 'select_address_details_form',
+
+    correspondence_address_details_form: 'correspondence_address_details_form',
+    correspondence_custom_address_details_form: 'correspondence_custom_address_details_form',
+    correspondence_residential_address_details_form: 'correspondence_residential_address_details_form',
+    correspondence_select_address_details_form: 'correspondence_select_address_details_form',
+
+    direct_debit_form: 'direct_debit_form',
+    employer_details_form: 'employer_details_form',
+    employer_address_details_form: 'employer_address_details_form',
+    employer_custom_address_details_form: 'employer_custom_address_details_form',
+    employer_residential_address_details_form: 'employer_residential_address_details_form',
+    employer_select_address_details_form: 'employer_select_address_details_form',
+    income_and_outgoings_form: 'income_and_outgoings_form',
+
+}
+
 class CreditCard extends React.Component {
     constructor(props) {
         super(props)
@@ -590,19 +616,19 @@ class CreditCard extends React.Component {
 
     toggle = (section) => {
         switch(section) {
-            case 'about_you_form': 
+            case FORM_TITLE.about_you_form: 
                 this.setState({ ...this.state, about_you: !this.state.about_you });
                 return
-            case 'address_details_form':
+            case FORM_TITLE.address_details_form:
                 this.setState({ ...this.state, address_details: !this.state.address_details });
                 return
-            case 'your_finances_form':
+            case FORM_TITLE.your_finances_form:
                 this.setState({ ...this.state, your_finances: !this.state.your_finances });
                 return
-            case 'optional_benefits_form':
+            case FORM_TITLE.optional_benefits_form:
                 this.setState({ ...this.state, optional_benefits: !this.state.optional_benefits });
                 return
-            case 'section_five':
+            case FORM_TITLE.section_five:
                 this.setState({ ...this.state, section_five: !this.state.section_five });
                 return
         }
@@ -615,11 +641,11 @@ class CreditCard extends React.Component {
         // this.setState({ ...this.state, a })
 
         switch(selected_form) {
-            case 'about_you_form':
+            case FORM_TITLE.about_you_form:
                 const about_you_form = FormUpdater.update(this.state.about_you_form, e.target)
                 this.setState({ ...this.state, about_you_form })
                 return
-            case 'address_details_form':
+            case FORM_TITLE.address_details_form:
                 const address_details_form = FormUpdater.update(this.state.address_details_form, e.target)
 
                 let show_correspondence_address = false
@@ -629,25 +655,25 @@ class CreditCard extends React.Component {
 
                 this.setState({ ...this.state, address_details_form, show_correspondence_address })
                 return
-            case 'custom_address_details_form':
+            case FORM_TITLE.custom_address_details_form:
                 const custom_address_details_form = FormUpdater.update(this.state.custom_address_details_form, e.target)
                 this.setState({ ...this.state, custom_address_details_form })
                return
 
 
-            case 'correspondence_address_details_form':
+            case FORM_TITLE.correspondence_address_details_form:
                const correspondence_address_details_form = FormUpdater.update(this.state.correspondence_address_details_form, e.target)
                this.setState({ ...this.state, correspondence_address_details_form })
                return
-           case 'correspondence_custom_address_details_form':
+           case FORM_TITLE.correspondence_custom_address_details_form:
                const correspondence_custom_address_details_form = FormUpdater.update(this.state.correspondence_custom_address_details_form, e.target) 
                this.setState({ ...this.state, correspondence_custom_address_details_form })
                return
-           case 'correspondence_residential_address_details_form':
+           case FORM_TITLE.correspondence_residential_address_details_form:
                const correspondence_residential_address_details_form = FormUpdater.update(this.state.correspondence_residential_address_details_form, e.target) 
                this.setState({ ...this.state, correspondence_residential_address_details_form })
                return
-           case 'correspondence_select_address_details_form':
+           case FORM_TITLE.correspondence_select_address_details_form:
                const correspondence_select_address_details_form = FormUpdater.update(this.state.correspondence_select_address_details_form, e.target) 
                this.setState({ ...this.state, correspondence_select_address_details_form })
                return
@@ -655,7 +681,7 @@ class CreditCard extends React.Component {
 
 
 
-            case 'residential_address_details_form':
+            case FORM_TITLE.residential_address_details_form:
                 const residential_address_details_form = FormUpdater.update(this.state.residential_address_details_form, e.target)
 
                 let correspondence_address = false
@@ -665,7 +691,7 @@ class CreditCard extends React.Component {
 
                 this.setState({ ...this.state, residential_address_details_form, correspondence_address })
                 return
-            case 'your_finances_form':
+            case FORM_TITLE.your_finances_form:
                 // To do
                 //(e.target.id === 'employment_status')? this.onEmployentStatus(e.target.value) : null
 
@@ -689,38 +715,38 @@ class CreditCard extends React.Component {
                 const your_finances_form = FormUpdater.update(this.state.your_finances_form, e.target) 
                 this.setState({ ...this.state, your_finances_form, income_and_outgoings, employer_details })
                 return
-            case 'direct_debit_form':
+            case FORM_TITLE.direct_debit_form:
                 const direct_debit_form = FormUpdater.update(this.state.direct_debit_form, e.target) 
                 this.setState({ ...this.state, direct_debit_form })
                 return
-            case 'employer_details_form':
+            case FORM_TITLE.employer_details_form:
                 const employer_details_form = FormUpdater.update(this.state.employer_details_form, e.target) 
                 this.setState({ ...this.state, employer_details_form })
                 return
 
-            case 'employer_address_details_form':
+            case FORM_TITLE.employer_address_details_form:
                 const employer_address_details_form = FormUpdater.update(this.state.employer_address_details_form, e.target)
                 this.setState({ ...this.state, employer_address_details_form })
                 return
-            case 'employer_custom_address_details_form':
+            case FORM_TITLE.employer_custom_address_details_form:
                 const employer_custom_address_details_form = FormUpdater.update(this.state.employer_custom_address_details_form, e.target) 
                 this.setState({ ...this.state, employer_custom_address_details_form })
                 return
-            case 'employer_residential_address_details_form':
+            case FORM_TITLE.employer_residential_address_details_form:
                 const employer_residential_address_details_form = FormUpdater.update(this.state.employer_residential_address_details_form, e.target) 
                 this.setState({ ...this.state, employer_residential_address_details_form })
                 return
-            case 'employer_select_address_details_form':
+            case FORM_TITLE.employer_select_address_details_form:
                 const employer_select_address_details_form = FormUpdater.update(this.state.employer_select_address_details_form, e.target) 
                 this.setState({ ...this.state, employer_select_address_details_form })
                 return
             
 
-            case 'income_and_outgoings_form':
+            case FORM_TITLE.income_and_outgoings_form:
                 const income_and_outgoings_form = FormUpdater.update(this.state.income_and_outgoings_form, e.target) 
                 this.setState({ ...this.state, income_and_outgoings_form })
                 return
-            case 'optional_benefits_form':
+            case FORM_TITLE.optional_benefits_form:
                 const optional_benefits_form = FormUpdater.update(this.state.optional_benefits_form, e.target)
                 this.setState({ ...this.state, optional_benefits_form })
                 return
@@ -734,80 +760,80 @@ class CreditCard extends React.Component {
         // this.setState({ ...this.state, a })
 
         switch(selected_form) {
-            case 'about_you_form':
+            case FORM_TITLE.about_you_form:
                 const about_you_form = FormUpdater.update(this.state.about_you_form, e.target, true)
                 this.setState({ ...this.state, about_you_form })
                 return
-            case 'address_details_form':
+            case FORM_TITLE.address_details_form:
                 const address_details_form = FormUpdater.update(this.state.address_details_form, e.target, true)
                 this.setState({ ...this.state, address_details_form })
                 return
-            case 'custom_address_details_form':
+            case FORM_TITLE.custom_address_details_form:
                 const custom_address_details_form = FormUpdater.update(this.state.custom_address_details_form, e.target, true)
                 this.setState({ ...this.state, custom_address_details_form })
                 return
-            case 'residential_address_details_form':
+            case FORM_TITLE.residential_address_details_form:
                 const residential_address_details_form = FormUpdater.update(this.state.residential_address_details_form, e.target, true)
                 this.setState({ ...this.state, residential_address_details_form })
                 return
 
 
-            case 'correspondence_address_details_form':
+            case FORM_TITLE.correspondence_address_details_form:
                 const correspondence_address_details_form = FormUpdater.update(this.state.correspondence_address_details_form, e.target, true)
                 this.setState({ ...this.state, correspondence_address_details_form })
                 return
-            case 'correspondence_custom_address_details_form':
+            case FORM_TITLE.correspondence_custom_address_details_form:
                 const correspondence_custom_address_details_form = FormUpdater.update(this.state.correspondence_custom_address_details_form, e.target, true) 
                 this.setState({ ...this.state, correspondence_custom_address_details_form })
                 return
-            case 'correspondence_residential_address_details_form':
+            case FORM_TITLE.correspondence_residential_address_details_form:
                 const correspondence_residential_address_details_form = FormUpdater.update(this.state.correspondence_residential_address_details_form, e.target, true) 
                 this.setState({ ...this.state, correspondence_residential_address_details_form })
                 return
-            case 'correspondence_select_address_details_form':
+            case FORM_TITLE.correspondence_select_address_details_form:
                 const correspondence_select_address_details_form = FormUpdater.update(this.state.correspondence_select_address_details_form, e.target, true) 
                 this.setState({ ...this.state, correspondence_select_address_details_form })
                 return
 
 
 
-            case 'your_finances_form':
+            case FORM_TITLE.your_finances_form:
                 const your_finances_form = FormUpdater.update(this.state.your_finances_form, e.target, true) 
                 this.setState({ ...this.state, your_finances_form })
                 return
-            case 'direct_debit_form':
+            case FORM_TITLE.direct_debit_form:
                 const direct_debit_form = FormUpdater.update(this.state.direct_debit_form, e.target, true) 
                 this.setState({ ...this.state, direct_debit_form })
                 return
-            case 'employer_details_form':
+            case FORM_TITLE.employer_details_form:
                 const employer_details_form = FormUpdater.update(this.state.employer_details_form, e.target, true) 
                 this.setState({ ...this.state, employer_details_form })
                 return
 
-            case 'employer_address_details_form':
+            case FORM_TITLE.employer_address_details_form:
                 const employer_address_details_form = FormUpdater.update(this.state.employer_address_details_form, e.target, true)
                 this.setState({ ...this.state, employer_address_details_form })
                 return
-            case 'employer_custom_address_details_form':
+            case FORM_TITLE.employer_custom_address_details_form:
                 const employer_custom_address_details_form = FormUpdater.update(this.state.employer_custom_address_details_form, e.target, true) 
                 this.setState({ ...this.state, employer_custom_address_details_form })
                 return
-            case 'employer_residential_address_details_form':
+            case FORM_TITLE.employer_residential_address_details_form:
                 const employer_residential_address_details_form = FormUpdater.update(this.state.employer_residential_address_details_form, e.target, true) 
                 this.setState({ ...this.state, employer_residential_address_details_form })
                 return
-            case 'employer_select_address_details_form':
+            case FORM_TITLE.employer_select_address_details_form:
                 const employer_select_address_details_form = FormUpdater.update(this.state.employer_select_address_details_form, e.target, true) 
                 this.setState({ ...this.state, employer_select_address_details_form })
                 return
 
 
 
-            case 'income_and_outgoings_form':
+            case FORM_TITLE.income_and_outgoings_form:
                 const income_and_outgoings_form = FormUpdater.update(this.state.income_and_outgoings_form, e.target, true) 
                 this.setState({ ...this.state, income_and_outgoings_form })
                 return
-            case 'optional_benefits_form':
+            case FORM_TITLE.optional_benefits_form:
                 const optional_benefits_form = FormUpdater.update(this.state.optional_benefits_form, e.target, true)
                 this.setState({ ...this.state, optional_benefits_form })
                 return
@@ -817,12 +843,12 @@ class CreditCard extends React.Component {
     continue = (section, submitSave) => {
         let form = null;
 
-        if( section === 'about_you_form' ){
+        if( section === FORM_TITLE.about_you_form ){
             const about_you_form = Validate.form(this.state.about_you_form)
             this.setState({ ...this.state, about_you_form })
             form = about_you_form
 
-        }else if( section === 'address_details_form' ){
+        }else if( section === FORM_TITLE.address_details_form ){
             const address_details_form = Validate.form(this.state.address_details_form)
             form = address_details_form
 
@@ -869,7 +895,7 @@ class CreditCard extends React.Component {
 
             this.setState({ ...this.state, address_details_form, custom_address_details_form, residential_address_details_form, correspondence_address_details_form, correspondence_custom_address_details_form, noAddressSelected })
 
-        }else if( section === 'your_finances_form' ){
+        }else if( section === FORM_TITLE.your_finances_form ){
             const your_finances_form = Validate.form(this.state.your_finances_form)
             form = your_finances_form
 
@@ -898,7 +924,7 @@ class CreditCard extends React.Component {
 
             this.setState({ ...this.state, your_finances_form, direct_debit_form, employer_details_form, income_and_outgoings_form })
 
-        }else if( section === 'optional_benefits_form' ){
+        }else if( section === FORM_TITLE.optional_benefits_form ){
             const optional_benefits_form = Validate.form(this.state.optional_benefits_form)
             this.setState({ ...this.state, optional_benefits_form })
             form = optional_benefits_form
@@ -1029,7 +1055,7 @@ class CreditCard extends React.Component {
                         <Col>
                             <Collapse isOpen={!this.state.about_you}>
                                 <Button  
-                                    onClick={()=> this.toggle('about_you_form')} 
+                                    onClick={()=> this.toggle(FORM_TITLE.about_you_form)} 
                                     color="link"
                                     className="float-right"
                                 >
@@ -1063,7 +1089,7 @@ class CreditCard extends React.Component {
                                 <Row>
                                     <Col sm={12} lg={6}>
                                         <FormGroup>
-                                            <DropDown subLabel="Title" id="title" field="title" onChange={(e)=> this.onChange('about_you_form', e)} onBlur={(e)=> this.onBlur('about_you_form', e)} validation={about_you_form.title}>
+                                            <DropDown subLabel="Title" id="title" field="title" onChange={(e)=> this.onChange(FORM_TITLE.about_you_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.about_you_form, e)} validation={about_you_form.title}>
                                                 <option value="">(Select one)</option>
                                                 <option value="Mr.">Mr.</option>
                                                 <option value="Mrs.">Mrs.</option>
@@ -1078,19 +1104,19 @@ class CreditCard extends React.Component {
                                             </DropDown>
                                         </FormGroup>
                                         <FormGroup>
-                                            <Text subLabel="First name" id="first_name" field="first_name" onChange={(e)=> this.onChange('about_you_form', e)} onBlur={(e)=> this.onBlur('about_you_form', e)} validation={about_you_form.first_name} />
+                                            <Text subLabel="First name" id="first_name" field="first_name" onChange={(e)=> this.onChange(FORM_TITLE.about_you_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.about_you_form, e)} validation={about_you_form.first_name} />
                                         </FormGroup>
                                         <FormGroup>
-                                            <Text subLabel="Middle name (optional)" id="middle_name" field="middle_name" onChange={(e)=> this.onChange('about_you_form', e)} onBlur={(e)=> this.onBlur('about_you_form', e)} validation={about_you_form.middle_name} />
+                                            <Text subLabel="Middle name (optional)" id="middle_name" field="middle_name" onChange={(e)=> this.onChange(FORM_TITLE.about_you_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.about_you_form, e)} validation={about_you_form.middle_name} />
                                         </FormGroup>
                                         <FormGroup>
-                                            <Text subLabel="Last name" id="last_name" field="last_name" onChange={(e)=> this.onChange('about_you_form', e)} onBlur={(e)=> this.onBlur('about_you_form', e)} validation={about_you_form.last_name} />
+                                            <Text subLabel="Last name" id="last_name" field="last_name" onChange={(e)=> this.onChange(FORM_TITLE.about_you_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.about_you_form, e)} validation={about_you_form.last_name} />
                                         </FormGroup>
                                         <FormGroup>
-                                            <Text subLabel="Any previous name (optional)" id="previous_name" field="previous_name" onChange={(e)=> this.onChange('about_you_form', e)} onBlur={(e)=> this.onBlur('about_you_form', e)} validation={about_you_form.previous_name} />
+                                            <Text subLabel="Any previous name (optional)" id="previous_name" field="previous_name" onChange={(e)=> this.onChange(FORM_TITLE.about_you_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.about_you_form, e)} validation={about_you_form.previous_name} />
                                         </FormGroup>
                                         <FormGroup>
-                                            <DropDown subLabel="Gender" id="gender" field="gender" onChange={(e)=> this.onChange('about_you_form', e)} onBlur={(e)=> this.onBlur('about_you_form', e)} validation={about_you_form.gender}>
+                                            <DropDown subLabel="Gender" id="gender" field="gender" onChange={(e)=> this.onChange(FORM_TITLE.about_you_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.about_you_form, e)} validation={about_you_form.gender}>
                                                 <option value="">(Select one)</option>
                                                 <option value="male">Male</option>
                                                 <option value="female">Female</option>
@@ -1098,19 +1124,19 @@ class CreditCard extends React.Component {
                                         </FormGroup>
                                         <FormGroup>
                                             <ButtonGroup>
-                                                <DropDown id="b_day" field="b_day" onChange={(e)=> this.onChange('about_you_form', e)} onBlur={(e)=> this.onBlur('about_you_form', e)} validation={about_you_form.b_day}>
+                                                <DropDown id="b_day" field="b_day" onChange={(e)=> this.onChange(FORM_TITLE.about_you_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.about_you_form, e)} validation={about_you_form.b_day}>
                                                     <option value="">Day</option>
                                                     <option value="1">1</option>
                                                     
                                                 </DropDown>
                                                 {' '}
-                                                <DropDown id="b_month" field="b_month" onChange={(e)=> this.onChange('about_you_form', e)} onBlur={(e)=> this.onBlur('about_you_form', e)} validation={about_you_form.b_month}>
+                                                <DropDown id="b_month" field="b_month" onChange={(e)=> this.onChange(FORM_TITLE.about_you_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.about_you_form, e)} validation={about_you_form.b_month}>
                                                     <option value="">Month</option>
                                                     <option value="1">1</option>
                                                     
                                                 </DropDown>
                                                 {' '}
-                                                <DropDown id="b_year" field="b_year" onChange={(e)=> this.onChange('about_you_form', e)} onBlur={(e)=> this.onBlur('about_you_form', e)} validation={about_you_form.b_year}>
+                                                <DropDown id="b_year" field="b_year" onChange={(e)=> this.onChange(FORM_TITLE.about_you_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.about_you_form, e)} validation={about_you_form.b_year}>
                                                     <option value="">Year</option>
                                                     <option value="1">1</option>
                                                     
@@ -1118,7 +1144,7 @@ class CreditCard extends React.Component {
                                             </ButtonGroup>
                                         </FormGroup>
                                         <FormGroup>
-                                            <DropDown subLabel="Marital status" id="marital_status" field="marital_status" onChange={(e)=> this.onChange('about_you_form', e)} onBlur={(e)=> this.onBlur('about_you_form', e)} validation={about_you_form.marital_status}>
+                                            <DropDown subLabel="Marital status" id="marital_status" field="marital_status" onChange={(e)=> this.onChange(FORM_TITLE.about_you_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.about_you_form, e)} validation={about_you_form.marital_status}>
                                                 <option value="">(select one)</option>
                                                 <option value="Single">Single</option>
                                                 <option value="Married">Married</option>
@@ -1127,7 +1153,7 @@ class CreditCard extends React.Component {
                                             </DropDown>
                                         </FormGroup>
                                         <FormGroup>
-                                            <DropDown subLabel="Your nationality" id="nationality" field="nationality" onChange={(e)=> this.onChange('about_you_form', e)} onBlur={(e)=> this.onBlur('about_you_form', e)} validation={about_you_form.nationality}>
+                                            <DropDown subLabel="Your nationality" id="nationality" field="nationality" onChange={(e)=> this.onChange(FORM_TITLE.about_you_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.about_you_form, e)} validation={about_you_form.nationality}>
                                                 <option value="">(select one)</option>
                                                 <option value="British">British</option>
                                                 <option value="Non British">Non British</option>
@@ -1135,21 +1161,21 @@ class CreditCard extends React.Component {
                                         </FormGroup>
                                         <p>You must be a UK resident to apply for a card</p>
                                         <FormGroup>
-                                            <Check label="I confirm that I am a UK resident" id="resident" field='resident' onChange={(e)=> this.onChange('about_you_form', e)} onBlur={(e)=> this.onBlur('about_you_form', e)} validation={about_you_form.resident} />
+                                            <Check label="I confirm that I am a UK resident" id="resident" field='resident' onChange={(e)=> this.onChange(FORM_TITLE.about_you_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.about_you_form, e)} validation={about_you_form.resident} />
                                         </FormGroup>
                                         <h3>Contact details</h3>
                                         <p>Now enter your contact information.</p>
                                         <FormGroup>
-                                            <Text subLabel="Mobile number" id="mobile" field="mobile" onChange={(e)=> this.onChange('about_you_form', e)} onBlur={(e)=> this.onBlur('about_you_form', e)} validation={about_you_form.mobile} />
+                                            <Text subLabel="Mobile number" id="mobile" field="mobile" onChange={(e)=> this.onChange(FORM_TITLE.about_you_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.about_you_form, e)} validation={about_you_form.mobile} />
                                         </FormGroup>
                                         <FormGroup>
-                                            <Text subLabel="Other phone number (optional)" id="other_phone" field="other_phone" onChange={(e)=> this.onChange('about_you_form', e)} onBlur={(e)=> this.onBlur('about_you_form', e)} validation={about_you_form.other_phone} />
+                                            <Text subLabel="Other phone number (optional)" id="other_phone" field="other_phone" onChange={(e)=> this.onChange(FORM_TITLE.about_you_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.about_you_form, e)} validation={about_you_form.other_phone} />
                                         </FormGroup>
                                         <FormGroup>
-                                            <Text subLabel="Email address" id="email" field="email" onChange={(e)=> this.onChange('about_you_form', e)} onBlur={(e)=> this.onBlur('about_you_form', e)} validation={about_you_form.email} />
+                                            <Text subLabel="Email address" id="email" field="email" onChange={(e)=> this.onChange(FORM_TITLE.about_you_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.about_you_form, e)} validation={about_you_form.email} />
                                         </FormGroup>
                                         <FormGroup>
-                                            <Text subLabel="Confirm your email address" id="email_confirm" field="email_confirm" onChange={(e)=> this.onChange('about_you_form', e)} onBlur={(e)=> this.onBlur('about_you_form', e)} validation={about_you_form.email_confirm} />
+                                            <Text subLabel="Confirm your email address" id="email_confirm" field="email_confirm" onChange={(e)=> this.onChange(FORM_TITLE.about_you_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.about_you_form, e)} validation={about_you_form.email_confirm} />
                                         </FormGroup>
                                         <p><strong>We will use your email address to send you emails to send you information about your application and account, and to notify you when your online statement is ready to view.</strong></p>
 
@@ -1158,7 +1184,7 @@ class CreditCard extends React.Component {
                                                 id="about_you_continue" 
                                                 type="button" 
                                                 color="primary"
-                                                onClick={()=> this.continue('about_you_form', 'submit')}
+                                                onClick={()=> this.continue(FORM_TITLE.about_you_form, 'submit')}
                                             >
                                                 Continue
                                             </Button>
@@ -1168,7 +1194,7 @@ class CreditCard extends React.Component {
                                                 type="button" 
                                                 outline
                                                 color="primary"
-                                                onClick={()=> this.continue('about_you_form', 'save')}
+                                                onClick={()=> this.continue(FORM_TITLE.about_you_form, 'save')}
                                             >
                                                 Save for later
                                             </Button>
@@ -1189,7 +1215,7 @@ class CreditCard extends React.Component {
                         <Col>
                             <Collapse isOpen={!this.state.address_details}>
                                 <Button  
-                                    onClick={()=> this.toggle('address_details_form')} 
+                                    onClick={()=> this.toggle(FORM_TITLE.address_details_form)} 
                                     color="link"
                                     className="float-right"
                                 >
@@ -1221,10 +1247,10 @@ class CreditCard extends React.Component {
                                             residential_address_details_form={residential_address_details_form}
                                             select_address_details_form={select_address_details_form}
 
-                                            fomrOne={'address_details_form'}
-                                            formTwo={'custom_address_details_form'}
-                                            fomrThree={'residential_address_details_form'}
-                                            formFour={'select_address_details_form'}
+                                            fomrOne={FORM_TITLE.address_details_form}
+                                            formTwo={FORM_TITLE.custom_address_details_form}
+                                            fomrThree={FORM_TITLE.residential_address_details_form}
+                                            formFour={FORM_TITLE.select_address_details_form}
 
                                             searchForAddress={this.searchForAddress}
                                             findAddress={this.findAddress}
@@ -1243,9 +1269,9 @@ class CreditCard extends React.Component {
                                                         validation={address_details_form.correspondence_address} 
                                                         label={"Yes"} 
                                                         id="correspondence_address_yes"
-                                                        onChange={(e)=> this.onChange('address_details_form', e)} 
-                                                        onBlur={(e)=> this.onBlur('address_details_form', e)} 
-                                                        onClick={(e)=> this.onChange('address_details_form', e)} 
+                                                        onChange={(e)=> this.onChange(FORM_TITLE.address_details_form, e)} 
+                                                        onBlur={(e)=> this.onBlur(FORM_TITLE.address_details_form, e)} 
+                                                        onClick={(e)=> this.onChange(FORM_TITLE.address_details_form, e)} 
                                                         value="yes" 
                                                         field='correspondence_address' 
                                                     />
@@ -1253,9 +1279,9 @@ class CreditCard extends React.Component {
                                                         validation={address_details_form.correspondence_address} 
                                                         label={"No"} 
                                                         id="correspondence_address_no" 
-                                                        onChange={(e)=> this.onChange('address_details_form', e)} 
-                                                        onBlur={(e)=> this.onBlur('address_details_form', e)} 
-                                                        onClick={(e)=> this.onChange('address_details_form', e)} 
+                                                        onChange={(e)=> this.onChange(FORM_TITLE.address_details_form, e)} 
+                                                        onBlur={(e)=> this.onBlur(FORM_TITLE.address_details_form, e)} 
+                                                        onClick={(e)=> this.onChange(FORM_TITLE.address_details_form, e)} 
                                                         value="no" 
                                                         field='correspondence_address' 
                                                     />
@@ -1273,10 +1299,10 @@ class CreditCard extends React.Component {
                                                 residential_address_details_form={correspondence_residential_address_details_form}
                                                 select_address_details_form={correspondence_select_address_details_form}
 
-                                                fomrOne={'correspondence_address_details_form'}
-                                                formTwo={'correspondence_custom_address_details_form'}
-                                                fomrThree={'correspondence_residential_address_details_form'}
-                                                formFour={'correspondence_select_address_details_form'}
+                                                fomrOne={FORM_TITLE.correspondence_address_details_form}
+                                                formTwo={FORM_TITLE.correspondence_custom_address_details_form}
+                                                fomrThree={FORM_TITLE.correspondence_residential_address_details_form}
+                                                formFour={FORM_TITLE.correspondence_select_address_details_form}
 
                                                 searchForAddress={this.correspondencesearchForAddress}
                                                 findAddress={this.correspondenceFindAddress}
@@ -1291,7 +1317,7 @@ class CreditCard extends React.Component {
                                                 id="address_details_continue" 
                                                 type="button" 
                                                 color="primary"
-                                                onClick={()=> this.continue('address_details_form', 'submit')}
+                                                onClick={()=> this.continue(FORM_TITLE.address_details_form, 'submit')}
                                             >
                                                 Continue
                                             </Button>
@@ -1301,7 +1327,7 @@ class CreditCard extends React.Component {
                                                 type="button"
                                                 outline
                                                 color="primary"
-                                                onClick={()=> this.continue('address_details_form', 'save')}
+                                                onClick={()=> this.continue(FORM_TITLE.address_details_form, 'save')}
                                             >
                                                 Save for later
                                             </Button>
@@ -1322,7 +1348,7 @@ class CreditCard extends React.Component {
                         <Col>
                             <Collapse isOpen={!this.state.your_finances}>
                                 <Button  
-                                    onClick={()=> this.toggle('your_finances_form')} 
+                                    onClick={()=> this.toggle(FORM_TITLE.your_finances_form)} 
                                     color="link"
                                     className="float-right"
                                 >
@@ -1341,29 +1367,29 @@ class CreditCard extends React.Component {
                                 <Row>
                                     <Col sm={12} lg={6}>
                                         <FormGroup>
-                                            <Text subLabel="Account number" id="account_number" field="account_number" onChange={(e)=> this.onChange('your_finances_form', e)} onBlur={(e)=> this.onBlur('your_finances_form', e)} validation={your_finances_form.account_number} />
+                                            <Text subLabel="Account number" id="account_number" field="account_number" onChange={(e)=> this.onChange(FORM_TITLE.your_finances_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.your_finances_form, e)} validation={your_finances_form.account_number} />
                                         </FormGroup>
                                         <p>Account not in your name? <a>Download Direct Debit instruction form</a></p>
                                         <FormGroup>
                                             <p>Sort code</p>
                                             <ButtonGroup>
-                                                <Text id="sort_code_1" field="sort_code_1" maxlength="2" onChange={(e)=> this.onChange('your_finances_form', e)} onBlur={(e)=> this.onBlur('your_finances_form', e)} validation={your_finances_form.sort_code_1}/>
+                                                <Text id="sort_code_1" field="sort_code_1" maxlength="2" onChange={(e)=> this.onChange(FORM_TITLE.your_finances_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.your_finances_form, e)} validation={your_finances_form.sort_code_1}/>
                                                 {' - '}
-                                                <Text id="sort_code_2" field="sort_code_2" maxlength="2" onChange={(e)=> this.onChange('your_finances_form', e)} onBlur={(e)=> this.onBlur('your_finances_form', e)} validation={your_finances_form.sort_code_2} />
+                                                <Text id="sort_code_2" field="sort_code_2" maxlength="2" onChange={(e)=> this.onChange(FORM_TITLE.your_finances_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.your_finances_form, e)} validation={your_finances_form.sort_code_2} />
                                                 {' - '}
-                                                <Text id="sort_code_3" field="sort_code_3" maxlength="2" onChange={(e)=> this.onChange('your_finances_form', e)} onBlur={(e)=> this.onBlur('your_finances_form', e)} validation={your_finances_form.sort_code_3} />
+                                                <Text id="sort_code_3" field="sort_code_3" maxlength="2" onChange={(e)=> this.onChange(FORM_TITLE.your_finances_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.your_finances_form, e)} validation={your_finances_form.sort_code_3} />
                                             </ButtonGroup>
                                         </FormGroup>
                                         <p>How long have you had this account?</p>
                                         <FormGroup>
                                             <ButtonGroup>
-                                                <DropDown id="account_month" field="account_month" onChange={(e)=> this.onChange('your_finances_form', e)} onBlur={(e)=> this.onBlur('your_finances_form', e)} validation={your_finances_form.account_month}>
+                                                <DropDown id="account_month" field="account_month" onChange={(e)=> this.onChange(FORM_TITLE.your_finances_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.your_finances_form, e)} validation={your_finances_form.account_month}>
                                                     <option value="">Month</option>
                                                     <option value="1">1</option>
                                                     
                                                 </DropDown>
                                                 {' '}
-                                                <DropDown id="account_year" field="account_year" onChange={(e)=> this.onChange('your_finances_form', e)} onBlur={(e)=> this.onBlur('your_finances_form', e)} validation={your_finances_form.account_year}>
+                                                <DropDown id="account_year" field="account_year" onChange={(e)=> this.onChange(FORM_TITLE.your_finances_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.your_finances_form, e)} validation={your_finances_form.account_year}>
                                                     <option value="">Year</option>
                                                     <option value="1">1</option>
                                                     
@@ -1407,9 +1433,9 @@ class CreditCard extends React.Component {
                                                         validation={direct_debit_form.pay_amount} 
                                                         label={"Minimum amount"} 
                                                         id="pay_minimum"
-                                                        onChange={(e)=> this.onChange('direct_debit_form', e)} 
-                                                        onBlur={(e)=> this.onBlur('direct_debit_form', e)} 
-                                                        onClick={(e)=> this.onChange('direct_debit_form', e)} 
+                                                        onChange={(e)=> this.onChange(FORM_TITLE.direct_debit_form, e)} 
+                                                        onBlur={(e)=> this.onBlur(FORM_TITLE.direct_debit_form, e)} 
+                                                        onClick={(e)=> this.onChange(FORM_TITLE.direct_debit_form, e)} 
                                                         value="minimum" 
                                                         field='pay_amount' 
                                                     />
@@ -1417,21 +1443,21 @@ class CreditCard extends React.Component {
                                                         validation={direct_debit_form.pay_amount} 
                                                         label={"Full balance"} 
                                                         id="pay_full" 
-                                                        onChange={(e)=> this.onChange('direct_debit_form', e)} 
-                                                        onBlur={(e)=> this.onBlur('direct_debit_form', e)} 
-                                                        onClick={(e)=> this.onChange('direct_debit_form', e)} 
+                                                        onChange={(e)=> this.onChange(FORM_TITLE.direct_debit_form, e)} 
+                                                        onBlur={(e)=> this.onBlur(FORM_TITLE.direct_debit_form, e)} 
+                                                        onClick={(e)=> this.onChange(FORM_TITLE.direct_debit_form, e)} 
                                                         value="full" 
                                                         field='pay_amount' 
                                                     />
                                                 </RadioGroup>
                                             </FormGroup>
                                             <FormGroup>
-                                                <Check label="I confirm that I am the owner of the above account and agree to our Terms and Conditions." id="owner_agree_terms" field='owner_agree_terms' onChange={(e)=> this.onChange('direct_debit_form', e)} onBlur={(e)=> this.onBlur('direct_debit_form', e)} validation={direct_debit_form.owner_agree_terms} />
+                                                <Check label="I confirm that I am the owner of the above account and agree to our Terms and Conditions." id="owner_agree_terms" field='owner_agree_terms' onChange={(e)=> this.onChange(FORM_TITLE.direct_debit_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.direct_debit_form, e)} validation={direct_debit_form.owner_agree_terms} />
                                             </FormGroup>
                                         </Collapse>
                                         <h2>Employment details</h2>
                                         <FormGroup>
-                                            <DropDown subLabel="Employment status" id="employment_status" field="employment_status" onChange={(e)=> this.onChange('your_finances_form', e)} onBlur={(e)=> this.onBlur('your_finances_form', e)} validation={your_finances_form.employment_status}>
+                                            <DropDown subLabel="Employment status" id="employment_status" field="employment_status" onChange={(e)=> this.onChange(FORM_TITLE.your_finances_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.your_finances_form, e)} validation={your_finances_form.employment_status}>
                                                 <option value="">(select one)</option>
                                                 <option value="Full-time employed">Full-time employed</option>
                                                 <option value="Part-time employed">Part-time employed</option>
@@ -1456,10 +1482,10 @@ class CreditCard extends React.Component {
                                             residential_address_details_form={employer_residential_address_details_form}
                                             select_address_details_form={employer_select_address_details_form}
 
-                                            fomrOne={'employer_address_details_form'}
-                                            formTwo={'employer_custom_address_details_form'}
-                                            fomrThree={'employer_residential_address_details_form'}
-                                            formFour={'employer_select_address_details_form'}
+                                            fomrOne={FORM_TITLE.employer_address_details_form}
+                                            formTwo={FORM_TITLE.employer_custom_address_details_form}
+                                            fomrThree={FORM_TITLE.employer_residential_address_details_form}
+                                            formFour={FORM_TITLE.employer_select_address_details_form}
 
                                             searchForAddress={this.employerSearchForAddress}
                                             findAddress={this.employerFindAddress}
@@ -1474,17 +1500,17 @@ class CreditCard extends React.Component {
                                             <FormGroup>
                                                 <p>Your gross annual income (£)</p>
                                                 <p><small>Basic salary before tax (excluding bonuses / overtime), pensions, investments</small></p>
-                                                <Text  id="annual_income" field="annual_income" onChange={(e)=> this.onChange('income_and_outgoings_form', e)} onBlur={(e)=> this.onBlur('income_and_outgoings_form', e)} validation={income_and_outgoings_form.annual_income} />
+                                                <Text  id="annual_income" field="annual_income" onChange={(e)=> this.onChange(FORM_TITLE.income_and_outgoings_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.income_and_outgoings_form, e)} validation={income_and_outgoings_form.annual_income} />
                                             </FormGroup>
                                             <FormGroup>
                                                 <p>Your partner's gross annual income (£) (optional)</p>
                                                 <p><small>Before tax</small></p>
-                                                <Text  id="partner_annual_income" field="partner_annual_income" onChange={(e)=> this.onChange('income_and_outgoings_form', e)} onBlur={(e)=> this.onBlur('income_and_outgoings_form', e)} validation={income_and_outgoings_form.partner_annual_income} />
+                                                <Text  id="partner_annual_income" field="partner_annual_income" onChange={(e)=> this.onChange(FORM_TITLE.income_and_outgoings_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.income_and_outgoings_form, e)} validation={income_and_outgoings_form.partner_annual_income} />
                                             </FormGroup>
                                             <FormGroup>
                                                 <p>Your monthly outgoings (£)</p>
                                                 <p><small>All your living costs</small></p>
-                                                <Text  id="monthly_outgoings" field="monthly_outgoings" onChange={(e)=> this.onChange('income_and_outgoings_form', e)} onBlur={(e)=> this.onBlur('income_and_outgoings_form', e)} validation={income_and_outgoings_form.monthly_outgoings} />
+                                                <Text  id="monthly_outgoings" field="monthly_outgoings" onChange={(e)=> this.onChange(FORM_TITLE.income_and_outgoings_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.income_and_outgoings_form, e)} validation={income_and_outgoings_form.monthly_outgoings} />
                                             </FormGroup>
                                         </Collapse>
 
@@ -1493,7 +1519,7 @@ class CreditCard extends React.Component {
                                                 id="your_finances_continue" 
                                                 type="button" 
                                                 color="primary"
-                                                onClick={()=> this.continue('your_finances_form', 'submit')}
+                                                onClick={()=> this.continue(FORM_TITLE.your_finances_form, 'submit')}
                                             >
                                                 Continue
                                             </Button>
@@ -1503,7 +1529,7 @@ class CreditCard extends React.Component {
                                                 type="button"
                                                 outline
                                                 color="primary"
-                                                onClick={()=> this.continue('your_finances_form', 'save')}
+                                                onClick={()=> this.continue(FORM_TITLE.your_finances_form, 'save')}
                                             >
                                                 Save for later
                                             </Button>
@@ -1524,7 +1550,7 @@ class CreditCard extends React.Component {
                         <Col>
                             <Collapse isOpen={!this.state.optional_benefits}>
                                 <Button  
-                                    onClick={()=> this.toggle('optional_benefits_form')} 
+                                    onClick={()=> this.toggle(FORM_TITLE.optional_benefits_form)} 
                                     color="link"
                                     className="float-right"
                                 >
@@ -1549,34 +1575,34 @@ class CreditCard extends React.Component {
                                         <FormGroup>
                                             <p>Would you like to transfer a balance?</p>
                                             <RadioGroup validation={optional_benefits_form.transfer}>
-                                                <Radio validation={optional_benefits_form.transfer} label={"Yes"} id="transfer_yes" onChange={(e)=> this.onChange('optional_benefits_form', e)} onBlur={(e)=> this.onBlur('optional_benefits_form', e)} onClick={(e)=> this.onChange('optional_benefits_form', e)} value="yes" field='transfer' />
-                                                <Radio validation={optional_benefits_form.transfer} label={"No"} id="transfer_no" onChange={(e)=> this.onChange('optional_benefits_form', e)} onBlur={(e)=> this.onBlur('optional_benefits_form', e)} onClick={(e)=> this.onChange('optional_benefits_form', e)} value="no" field='transfer' />
+                                                <Radio validation={optional_benefits_form.transfer} label={"Yes"} id="transfer_yes" onChange={(e)=> this.onChange(FORM_TITLE.optional_benefits_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.optional_benefits_form, e)} onClick={(e)=> this.onChange(FORM_TITLE.optional_benefits_form, e)} value="yes" field='transfer' />
+                                                <Radio validation={optional_benefits_form.transfer} label={"No"} id="transfer_no" onChange={(e)=> this.onChange(FORM_TITLE.optional_benefits_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.optional_benefits_form, e)} onClick={(e)=> this.onChange(FORM_TITLE.optional_benefits_form, e)} value="no" field='transfer' />
                                             </RadioGroup>
                                         </FormGroup>
                                         <FormGroup>
                                             <p>Would you like to add another cardholder?</p>
                                             <RadioGroup validation={optional_benefits_form.another_holder}>
-                                                <Radio validation={optional_benefits_form.another_holder} label={"Yes"} id="another_holder_yes" onChange={(e)=> this.onChange('optional_benefits_form', e)} onBlur={(e)=> this.onBlur('optional_benefits_form', e)} onClick={(e)=> this.onChange('optional_benefits_form', e)} value="yes" field='another_holder' />
-                                                <Radio validation={optional_benefits_form.another_holder} label={"No"} id="another_holder_no" onChange={(e)=> this.onChange('optional_benefits_form', e)} onBlur={(e)=> this.onBlur('optional_benefits_form', e)} onClick={(e)=> this.onChange('optional_benefits_form', e)} value="no" field='another_holder' />
+                                                <Radio validation={optional_benefits_form.another_holder} label={"Yes"} id="another_holder_yes" onChange={(e)=> this.onChange(FORM_TITLE.optional_benefits_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.optional_benefits_form, e)} onClick={(e)=> this.onChange(FORM_TITLE.optional_benefits_form, e)} value="yes" field='another_holder' />
+                                                <Radio validation={optional_benefits_form.another_holder} label={"No"} id="another_holder_no" onChange={(e)=> this.onChange(FORM_TITLE.optional_benefits_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.optional_benefits_form, e)} onClick={(e)=> this.onChange(FORM_TITLE.optional_benefits_form, e)} value="no" field='another_holder' />
                                             </RadioGroup>
                                         </FormGroup>
                                         <FormGroup>
                                             <p>Keeping in touch</p>
                                             <RadioGroup validation={optional_benefits_form.keep_touch}>
-                                                <Radio validation={optional_benefits_form.keep_touch} label={"Yes"} id="keep_touch_yes" onChange={(e)=> this.onChange('optional_benefits_form', e)} onBlur={(e)=> this.onBlur('optional_benefits_form', e)} onClick={(e)=> this.onChange('optional_benefits_form', e)} value="yes" field='keep_touch' />
-                                                <Radio validation={optional_benefits_form.keep_touch} label={"No"} id="keep_touch_no" onChange={(e)=> this.onChange('optional_benefits_form', e)} onBlur={(e)=> this.onBlur('optional_benefits_form', e)} onClick={(e)=> this.onChange('optional_benefits_form', e)} value="no" field='keep_touch' />
+                                                <Radio validation={optional_benefits_form.keep_touch} label={"Yes"} id="keep_touch_yes" onChange={(e)=> this.onChange(FORM_TITLE.optional_benefits_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.optional_benefits_form, e)} onClick={(e)=> this.onChange(FORM_TITLE.optional_benefits_form, e)} value="yes" field='keep_touch' />
+                                                <Radio validation={optional_benefits_form.keep_touch} label={"No"} id="keep_touch_no" onChange={(e)=> this.onChange(FORM_TITLE.optional_benefits_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.optional_benefits_form, e)} onClick={(e)=> this.onChange(FORM_TITLE.optional_benefits_form, e)} value="no" field='keep_touch' />
                                             </RadioGroup>
                                         </FormGroup>
                                         <p>You must be a UK resident to apply for a card</p>
                                         <FormGroup>
-                                            <Check label="Send a copy of this application by email" id="send_by_email" field='send_by_email' onChange={(e)=> this.onChange('optional_benefits_form', e)} onBlur={(e)=> this.onBlur('optional_benefits_form', e)} validation={optional_benefits_form.send_by_email} />
+                                            <Check label="Send a copy of this application by email" id="send_by_email" field='send_by_email' onChange={(e)=> this.onChange(FORM_TITLE.optional_benefits_form, e)} onBlur={(e)=> this.onBlur(FORM_TITLE.optional_benefits_form, e)} validation={optional_benefits_form.send_by_email} />
                                         </FormGroup>
                                         <FormGroup>
                                             <Button 
                                                 id="optional_benefits_continue" 
                                                 type="button" 
                                                 color="primary"
-                                                onClick={()=> this.continue('optional_benefits_form', 'submit')}
+                                                onClick={()=> this.continue(FORM_TITLE.optional_benefits_form, 'submit')}
                                             >
                                                 Continue
                                             </Button>
@@ -1586,7 +1612,7 @@ class CreditCard extends React.Component {
                                                 type="button"
                                                 outline
                                                 color="primary"
-                                                onClick={()=> this.continue('optional_benefits_form', 'save')}
+                                                onClick={()=> this.continue(FORM_TITLE.optional_benefits_form, 'save')}
                                             >
                                                 Save for later
                                             </Button>
@@ -1601,7 +1627,7 @@ class CreditCard extends React.Component {
                 {/* review and submit */}
                 <div>
                     <Collapse isOpen={this.state.section_five}>
-                        <a onClick={()=> this.toggle('section_five')}>
+                        <a onClick={()=> this.toggle(FORM_TITLE.section_five)}>
                             <div>
                                 <h2>6. Review and submit</h2>
                                 <p>
