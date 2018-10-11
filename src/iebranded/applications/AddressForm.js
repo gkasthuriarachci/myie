@@ -70,14 +70,32 @@ class AddressForm extends React.Component {
                                 <ButtonGroup>
                                     <DropDown id="living_month" field="living_month" onChange={(e)=> this.props.onChange(fomrThree, e)} onBlur={(e)=> this.props.onBlur(fomrThree, e)} validation={this.props.residential_address_details_form.living_month}>
                                         <option value="">Month</option>
-                                        <option value="1">1</option>
-                                        
+                                        <option value="1">January</option>
+                                        <option value="2">February</option>
+                                        <option value="3">March</option>
+                                        <option value="4">April</option>
+                                        <option value="5">May</option>
+                                        <option value="6">June</option>
+                                        <option value="7">July</option>
+                                        <option value="8">August</option>
+                                        <option value="9">September</option>
+                                        <option value="10">October</option>
+                                        <option value="11">November</option>
+                                        <option value="12">December</option>
                                     </DropDown>
                                     {' '}
                                     <DropDown id="living_year" field="living_year" onChange={(e)=> this.props.onChange(fomrThree, e)} onBlur={(e)=> this.props.onBlur(fomrThree, e)} validation={this.props.residential_address_details_form.living_year}>
                                         <option value="">Year</option>
-                                        <option value="1">1</option>
-                                        
+                                        <option value="2018">2018</option>
+                                        <option value="2017">2017</option>
+                                        <option value="2016">2016</option>
+                                        <option value="2015">2015</option>
+                                        <option value="2014">2014</option>
+                                        <option value="2013">2013</option>
+                                        <option value="2012">2012</option>
+                                        <option value="2011">2011</option>
+                                        <option value="2010">2010</option>
+                                        <option value="2009">Before 2010</option>
                                     </DropDown>
                                 </ButtonGroup>
                             </FormGroup>  

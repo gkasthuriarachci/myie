@@ -21,6 +21,13 @@ class CreditCard extends React.Component {
             residential_status: false,
             select_address: false,
             noAddressSelected: false,
+            correspondence_address: false,
+            show_correspondence_address: false,
+
+            correspondence_details: false,
+            correspondence_manual_address: false,
+            correspondence_select_address: false,
+            correspondence_noAddressSelected: false,
 
             paying_by_debit: false,
 
@@ -133,6 +140,11 @@ class CreditCard extends React.Component {
                         required: { message: "Please enter your postcode" },
                         format: { regex: /^[a-zA-Z0-9]{8}$/, message: "Please enter your postcode in a valid UK postcode format"}
                     }
+                },
+                "correspondence_address": {
+                    rules: {
+                        
+                    }
                 }
             },
 
@@ -183,6 +195,84 @@ class CreditCard extends React.Component {
             },
 
             select_address_details_form: {
+                "select_address": {
+                    rules: {
+                        
+                    }
+                }
+            },
+
+            correspondence_address_details_form: {
+                "house_number": {
+                    rules: {
+                        
+                    }
+                },
+                "house_name": {
+                    rules: {
+                        
+                    }
+                },
+                "postcode": {
+                    rules: {
+                        required: { message: "Please enter your postcode" },
+                        format: { regex: /^[a-zA-Z0-9]{8}$/, message: "Please enter your postcode in a valid UK postcode format"}
+                    }
+                },
+                "correspondence_address": {
+                    rules: {
+                        
+                    }
+                }
+            },
+
+            correspondence_custom_address_details_form: {
+                "flat_number": {
+                    rules: {
+                        
+                    }
+                },
+                "street": {
+                    rules: {
+                        required: { message: "Please enter the street name" }
+                    }
+                },
+                "district": {
+                    rules: {
+                        
+                    }
+                },
+                "city": {
+                    rules: {
+                        required: { message: "Please enter your town or city" }
+                    }
+                },
+                "county": {
+                    rules: {
+                        
+                    }
+                }
+            },
+
+            correspondence_residential_address_details_form: {
+                "residential_status": {
+                    rules: {
+                        required: { message: "Please tell us your residential status" }
+                    }
+                },
+                "living_month": {
+                    rules: {
+                        required: { message: "Please select the date when you started living there" }
+                    }
+                },
+                "living_year": {
+                    rules: {
+                        required: { message: "Please select the date when you started living there" }
+                    }
+                }
+            },
+
+            correspondence_select_address_details_form: {
                 "select_address": {
                     rules: {
                         
@@ -415,6 +505,34 @@ class CreditCard extends React.Component {
         
     }
 
+    correspondenceManualAddress = () => {
+        const correspondence_manual_address = true;
+        const correspondence_select_address = false
+        this.setState({ ...this.state, correspondence_manual_address, correspondence_select_address });
+    }
+
+    correspondenceSearchForAddress =() => {
+        const correspondence_manual_address = false;
+        const correspondence_select_address = false
+        this.setState({ ...this.state, correspondence_manual_address, correspondence_select_address });
+    }
+
+    correspondenceFindAddress = () => {
+        const correspondence_address_details_form = Validate.form(this.state.correspondence_address_details_form)
+        this.setState({ ...this.state, correspondence_address_details_form })
+
+        if(correspondence_address_details_form.approved){
+            const correspondence_manual_address = false
+            const correspondence_select_address = true
+            const correspondence_noAddressSelected = false
+            this.setState({ correspondence_manual_address, correspondence_select_address, correspondence_noAddressSelected });
+        }else{
+            const correspondence_noAddressSelected = true
+            this.setState({ ...this.state, correspondence_noAddressSelected })
+        }
+        
+    }
+
     employerManualAddress = () => {
         const employer_manual_address = true;
         const employer_select_address = false
@@ -503,15 +621,49 @@ class CreditCard extends React.Component {
                 return
             case 'address_details_form':
                 const address_details_form = FormUpdater.update(this.state.address_details_form, e.target)
-                this.setState({ ...this.state, address_details_form })
+
+                let show_correspondence_address = false
+                if(e.target.name === 'correspondence_address' && e.target.value === 'yes'){
+                    show_correspondence_address = true
+                }
+
+                this.setState({ ...this.state, address_details_form, show_correspondence_address })
                 return
             case 'custom_address_details_form':
                 const custom_address_details_form = FormUpdater.update(this.state.custom_address_details_form, e.target)
                 this.setState({ ...this.state, custom_address_details_form })
                return
+
+
+            case 'correspondence_address_details_form':
+               const correspondence_address_details_form = FormUpdater.update(this.state.correspondence_address_details_form, e.target)
+               this.setState({ ...this.state, correspondence_address_details_form })
+               return
+           case 'correspondence_custom_address_details_form':
+               const correspondence_custom_address_details_form = FormUpdater.update(this.state.correspondence_custom_address_details_form, e.target) 
+               this.setState({ ...this.state, correspondence_custom_address_details_form })
+               return
+           case 'correspondence_residential_address_details_form':
+               const correspondence_residential_address_details_form = FormUpdater.update(this.state.correspondence_residential_address_details_form, e.target) 
+               this.setState({ ...this.state, correspondence_residential_address_details_form })
+               return
+           case 'correspondence_select_address_details_form':
+               const correspondence_select_address_details_form = FormUpdater.update(this.state.correspondence_select_address_details_form, e.target) 
+               this.setState({ ...this.state, correspondence_select_address_details_form })
+               return
+
+
+
+
             case 'residential_address_details_form':
                 const residential_address_details_form = FormUpdater.update(this.state.residential_address_details_form, e.target)
-                this.setState({ ...this.state, residential_address_details_form })
+
+                let correspondence_address = false
+                if(e.target.id === 'living_year' && e.target.value !== ''){
+                    correspondence_address = true
+                }
+
+                this.setState({ ...this.state, residential_address_details_form, correspondence_address })
                 return
             case 'your_finances_form':
                 // To do
@@ -598,6 +750,27 @@ class CreditCard extends React.Component {
                 const residential_address_details_form = FormUpdater.update(this.state.residential_address_details_form, e.target, true)
                 this.setState({ ...this.state, residential_address_details_form })
                 return
+
+
+            case 'correspondence_address_details_form':
+                const correspondence_address_details_form = FormUpdater.update(this.state.correspondence_address_details_form, e.target, true)
+                this.setState({ ...this.state, correspondence_address_details_form })
+                return
+            case 'correspondence_custom_address_details_form':
+                const correspondence_custom_address_details_form = FormUpdater.update(this.state.correspondence_custom_address_details_form, e.target, true) 
+                this.setState({ ...this.state, correspondence_custom_address_details_form })
+                return
+            case 'correspondence_residential_address_details_form':
+                const correspondence_residential_address_details_form = FormUpdater.update(this.state.correspondence_residential_address_details_form, e.target, true) 
+                this.setState({ ...this.state, correspondence_residential_address_details_form })
+                return
+            case 'correspondence_select_address_details_form':
+                const correspondence_select_address_details_form = FormUpdater.update(this.state.correspondence_select_address_details_form, e.target, true) 
+                this.setState({ ...this.state, correspondence_select_address_details_form })
+                return
+
+
+
             case 'your_finances_form':
                 const your_finances_form = FormUpdater.update(this.state.your_finances_form, e.target, true) 
                 this.setState({ ...this.state, your_finances_form })
@@ -653,8 +826,11 @@ class CreditCard extends React.Component {
             const address_details_form = Validate.form(this.state.address_details_form)
             form = address_details_form
 
-            let custom_address_details_form =this.state.custom_address_details_form
-            let residential_address_details_form =this.state.residential_address_details_form
+            let custom_address_details_form = this.state.custom_address_details_form
+            let residential_address_details_form = this.state.residential_address_details_form
+
+            let correspondence_address_details_form = this.state.correspondence_address_details_form
+            let correspondence_custom_address_details_form = this.state.correspondence_custom_address_details_form
 
             let noAddressSelected = false
 
@@ -672,12 +848,26 @@ class CreditCard extends React.Component {
                 }
             }
 
+            if(this.state.correspondence_address && this.state.show_correspondence_address){
+                correspondence_address_details_form = Validate.form(correspondence_address_details_form)
+                if(!correspondence_address_details_form.approved){
+                    form.approved = false
+                }
+
+                if(this.state.correspondence_manual_address){
+                    correspondence_custom_address_details_form = Validate.form(correspondence_custom_address_details_form)
+                    if(!correspondence_custom_address_details_form.approved){
+                        form.approved = false   
+                    }
+                }
+            }
+
             if(!this.state.select_address && form.approved){
                 form.approved = false
                 noAddressSelected = true
             }
 
-            this.setState({ ...this.state, address_details_form, custom_address_details_form, residential_address_details_form, noAddressSelected })
+            this.setState({ ...this.state, address_details_form, custom_address_details_form, residential_address_details_form, correspondence_address_details_form, correspondence_custom_address_details_form, noAddressSelected })
 
         }else if( section === 'your_finances_form' ){
             const your_finances_form = Validate.form(this.state.your_finances_form)
@@ -806,6 +996,11 @@ class CreditCard extends React.Component {
         const { residential_address_details_form } = this.state
         const { select_address_details_form } = this.state
         
+        const { correspondence_address_details_form } = this.state
+        const { correspondence_custom_address_details_form } = this.state
+        const { correspondence_residential_address_details_form } = this.state
+        const { correspondence_select_address_details_form } = this.state
+
         const { your_finances_form } = this.state
         const { direct_debit_form } = this.state
         
@@ -813,6 +1008,7 @@ class CreditCard extends React.Component {
         const { employer_custom_address_details_form } = this.state
         const { employer_residential_address_details_form } = this.state
         const { employer_select_address_details_form } = this.state
+        
         
         const { income_and_outgoings_form } = this.state
 
@@ -1014,8 +1210,7 @@ class CreditCard extends React.Component {
                         <div>
                             <Form>
                                 <Row>
-                                    <Col sm={12} lg={6}>
-                                        
+                                    <Col sm={12} lg={6}>                                       
                                         <AddressForm 
                                             manual_address={this.state.manual_address} 
                                             select_address={this.state.select_address}
@@ -1038,7 +1233,59 @@ class CreditCard extends React.Component {
                                             onChange={this.onChange}
                                             onBlur={this.onBlur}
                                         />
+                                        <Collapse isOpen={this.state.correspondence_address}>
+                                            <h2>Correspondence address</h2>
+                                            <p>We will use your current address for correspondence (e.g. statements, updates).</p>
+                                            <p>Do you want to set up a separate correspondence address?</p>
+                                            <FormGroup>
+                                                <RadioGroup validation={address_details_form.correspondence_address}>
+                                                    <Radio 
+                                                        validation={address_details_form.correspondence_address} 
+                                                        label={"Yes"} 
+                                                        id="correspondence_address_yes"
+                                                        onChange={(e)=> this.onChange('address_details_form', e)} 
+                                                        onBlur={(e)=> this.onBlur('address_details_form', e)} 
+                                                        onClick={(e)=> this.onChange('address_details_form', e)} 
+                                                        value="yes" 
+                                                        field='correspondence_address' 
+                                                    />
+                                                    <Radio 
+                                                        validation={address_details_form.correspondence_address} 
+                                                        label={"No"} 
+                                                        id="correspondence_address_no" 
+                                                        onChange={(e)=> this.onChange('address_details_form', e)} 
+                                                        onBlur={(e)=> this.onBlur('address_details_form', e)} 
+                                                        onClick={(e)=> this.onChange('address_details_form', e)} 
+                                                        value="no" 
+                                                        field='correspondence_address' 
+                                                    />
+                                                </RadioGroup>
+                                            </FormGroup>
+                                        </Collapse>
+                                        <Collapse isOpen={this.state.show_correspondence_address}>
+                                            <AddressForm 
+                                                manual_address={this.state.correspondence_manual_address} 
+                                                select_address={this.state.correspondence_select_address}
+                                                residential_status={false}
 
+                                                address_details_form={correspondence_address_details_form}
+                                                custom_address_details_form={correspondence_custom_address_details_form} 
+                                                residential_address_details_form={correspondence_residential_address_details_form}
+                                                select_address_details_form={correspondence_select_address_details_form}
+
+                                                fomrOne={'correspondence_address_details_form'}
+                                                formTwo={'correspondence_custom_address_details_form'}
+                                                fomrThree={'correspondence_residential_address_details_form'}
+                                                formFour={'correspondence_select_address_details_form'}
+
+                                                searchForAddress={this.correspondencesearchForAddress}
+                                                findAddress={this.correspondenceFindAddress}
+                                                manualAddress={this.correspondenceManualAddress}
+
+                                                onChange={this.onChange}
+                                                onBlur={this.onBlur}
+                                            />
+                                        </Collapse>
                                         <FormGroup>
                                             <Button 
                                                 id="address_details_continue" 
