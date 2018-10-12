@@ -37,7 +37,7 @@ class CreditCard extends React.Component {
         super(props)
         
         this.state = {
-            about_you: false,
+            about_you: true,
             address_details: false,
             your_finances: false,
             optional_benefits: false,
@@ -581,7 +581,7 @@ class CreditCard extends React.Component {
             const employer_manual_address = false
             const employer_select_address = true
             const employer_noAddressSelected = false
-            this.setState({ employer_manual_address, employer_select_address, employer_noAddressSelected });
+            this.setState({ ...this.state, employer_manual_address, employer_select_address, employer_noAddressSelected });
         }else{
             const employer_noAddressSelected = true
             this.setState({ ...this.state, employer_noAddressSelected })
@@ -928,19 +928,37 @@ class CreditCard extends React.Component {
             const optional_benefits_form = Validate.form(this.state.optional_benefits_form)
             this.setState({ ...this.state, optional_benefits_form })
             form = optional_benefits_form
-
         }
 
         if(submitSave === 'save'){
+            this.submitSection(section)
             console.log(section, " form save.", form)
-            this.toggle(section)
         }else if (submitSave === 'submit' && form.approved) {
-            this.toggle(section)
+            this.submitSection(section)
             console.log(section, " form submit.", form)
         }else {
             console.log(section, " form invalid!", form)
         }
-        
+    }
+
+    submitSection = (section) => {
+        switch(section) {
+            case FORM_TITLE.about_you_form: 
+                this.setState({ ...this.state, about_you: !this.state.about_you, address_details: !this.state.address_details });
+                return
+            case FORM_TITLE.address_details_form:
+                this.setState({ ...this.state, address_details: !this.state.address_details, your_finances: !this.state.your_finances });
+                return
+            case FORM_TITLE.your_finances_form:
+                this.setState({ ...this.state, your_finances: !this.state.your_finances, optional_benefits: !this.state.optional_benefits });
+                return
+            case FORM_TITLE.optional_benefits_form:
+                this.setState({ ...this.state, optional_benefits: !this.state.optional_benefits });
+                return
+            case FORM_TITLE.section_five:
+                this.setState({ ...this.state, section_five: !this.state.section_five });
+                return
+        }
     }
 
     submitAll = (submitSave) => {
@@ -1053,7 +1071,7 @@ class CreditCard extends React.Component {
                             <h2>2. About you</h2>
                         </Col>
                         <Col>
-                            <Collapse isOpen={!this.state.about_you}>
+                            <Collapse isOpen={!this.state.about_you && about_you_form.title.value}>
                                 <Button  
                                     onClick={()=> this.toggle(FORM_TITLE.about_you_form)} 
                                     color="link"
@@ -1213,7 +1231,7 @@ class CreditCard extends React.Component {
                             <h2>3. Address details</h2>
                         </Col>
                         <Col>
-                            <Collapse isOpen={!this.state.address_details}>
+                            <Collapse isOpen={!this.state.address_details && address_details_form.postcode.value}>
                                 <Button  
                                     onClick={()=> this.toggle(FORM_TITLE.address_details_form)} 
                                     color="link"
@@ -1226,6 +1244,23 @@ class CreditCard extends React.Component {
                     </Row>
                     <Collapse isOpen={!this.state.address_details}>
                         
+                        <Row>
+                            <Col> 
+                                <h4>Current address</h4>
+                                <p>Flat</p>
+                                <p>{custom_address_details_form.flat_number.value}</p>
+                                <p>{address_details_form.house_number.value}</p>
+                            </Col>
+                            <Col>
+                                <p>{address_details_form.house_name.value}</p>
+                                <p>{custom_address_details_form.street.value}</p>
+                                <p>{custom_address_details_form.city.value}</p>
+                                <p>{custom_address_details_form.county.value}</p>
+                                <p>{address_details_form.postcode.value}</p>
+                                <p>{residential_address_details_form.residential_status.value}</p>
+                                <p>{residential_address_details_form.living_month.value} {' '} {residential_address_details_form.living_year.value}</p>
+                            </Col>
+                        </Row>   
                     </Collapse>
                     <Collapse isOpen={this.state.address_details}>
                         <p>Please enter your address details. We support BFPO (British Forces Post Office) too, so if you are a member of the British armed forces please continue to complete this form.</p>
