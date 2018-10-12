@@ -1,9 +1,10 @@
 import React from 'react'
 import { Form as FormUpdater, Validate } from '@myie/interact'
-import { AddressLookup, Text, DropDown, Check, TextArea, RadioGroup, Radio } from '@myie/interact-dom'
+import { Text, DropDown, Check, RadioGroup, Radio } from '@myie/interact-dom'
 import { Row, Col, Form, FormGroup, Button, ButtonGroup, Collapse } from 'reactstrap'
 import { FaPencilAlt } from 'react-icons/fa';
 
+import SectionHeader from './SectionHeader'
 import AddressForm from './AddressForm'
 
 const FORM_TITLE = {
@@ -1066,22 +1067,11 @@ class CreditCard extends React.Component {
                 <p>During the application you can click <strong>Save for later</strong> to store your details and then return and continue later.</p>
                 {/* about_you_form */}
                 <div>
-                    <Row>
-                        <Col>
-                            <h2>2. About you</h2>
-                        </Col>
-                        <Col>
-                            <Collapse isOpen={!this.state.about_you && about_you_form.title.value}>
-                                <Button  
-                                    onClick={()=> this.toggle(FORM_TITLE.about_you_form)} 
-                                    color="link"
-                                    className="float-right"
-                                >
-                                Edit <FaPencilAlt />
-                                </Button>
-                            </Collapse>
-                        </Col>
-                    </Row>
+                    <SectionHeader
+                        title={'2. About you'}
+                        isOpen={!this.state.about_you && about_you_form.title.value}
+                        onClick={()=> this.toggle(FORM_TITLE.about_you_form)} 
+                    />
                     <Collapse isOpen={!this.state.about_you}>
                         <Row>
                             <Col> 
@@ -1226,24 +1216,12 @@ class CreditCard extends React.Component {
                 </div>
                 {/* address details */}
                 <div>
-                    <Row>
-                        <Col>
-                            <h2>3. Address details</h2>
-                        </Col>
-                        <Col>
-                            <Collapse isOpen={!this.state.address_details && address_details_form.postcode.value}>
-                                <Button  
-                                    onClick={()=> this.toggle(FORM_TITLE.address_details_form)} 
-                                    color="link"
-                                    className="float-right"
-                                >
-                                Edit <FaPencilAlt />
-                                </Button>
-                            </Collapse>
-                        </Col>
-                    </Row>
+                    <SectionHeader
+                        title={'3. Address details'}
+                        isOpen={!this.state.address_details && address_details_form.postcode.value}
+                        onClick={()=> this.toggle(FORM_TITLE.address_details_form)} 
+                    />
                     <Collapse isOpen={!this.state.address_details}>
-                        
                         <Row>
                             <Col> 
                                 <h4>Current address</h4>
@@ -1376,22 +1354,11 @@ class CreditCard extends React.Component {
                 </div>
                 {/* your finances */}
                 <div>
-                    <Row>
-                        <Col>
-                            <h2>4. Your finances</h2>
-                        </Col>
-                        <Col>
-                            <Collapse isOpen={!this.state.your_finances}>
-                                <Button  
-                                    onClick={()=> this.toggle(FORM_TITLE.your_finances_form)} 
-                                    color="link"
-                                    className="float-right"
-                                >
-                                Edit <FaPencilAlt />
-                                </Button>
-                            </Collapse>
-                        </Col>
-                    </Row>
+                    <SectionHeader
+                        title={'4. Your finances'}
+                        isOpen={!this.state.your_finances}
+                        onClick={()=> this.toggle(FORM_TITLE.your_finances_form)} 
+                    />
                     <Collapse isOpen={!this.state.your_finances}>
                         <p>{your_finances_form.account_number.value}</p>
                     </Collapse>
@@ -1578,22 +1545,11 @@ class CreditCard extends React.Component {
                 </div>
                 {/* optional benefits */}
                 <div>
-                    <Row>
-                        <Col>
-                            <h2>5. Optional benefits and keeping in touch</h2>
-                        </Col>
-                        <Col>
-                            <Collapse isOpen={!this.state.optional_benefits}>
-                                <Button  
-                                    onClick={()=> this.toggle(FORM_TITLE.optional_benefits_form)} 
-                                    color="link"
-                                    className="float-right"
-                                >
-                                Edit <FaPencilAlt />
-                                </Button>
-                            </Collapse>
-                        </Col>
-                    </Row>
+                    <SectionHeader
+                        title={'5. Optional benefits and keeping in touch'}
+                        isOpen={!this.state.optional_benefits}
+                        onClick={()=> this.toggle(FORM_TITLE.optional_benefits_form)} 
+                    />
                     <Collapse isOpen={!this.state.optional_benefits}>
                         <p>Field 1 value: {optional_benefits_form.transfer.value}</p>
                         <p>Field 2 value: {optional_benefits_form.another_holder.value}</p>

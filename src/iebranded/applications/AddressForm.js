@@ -1,12 +1,8 @@
 import React from 'react'
-import { AddressLookup, Text, DropDown, Check, TextArea, RadioGroup, Radio } from '@myie/interact-dom'
-import { Row, Col, Form, FormGroup, Button, ButtonGroup, Collapse } from 'reactstrap'
+import { Text, DropDown, TextArea } from '@myie/interact-dom'
+import { Row, Col, FormGroup, Button, ButtonGroup, Collapse } from 'reactstrap'
 
 class AddressForm extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-
     render() {
         const fomrOne = this.props.fomrOne
         const formTwo = this.props.formTwo
