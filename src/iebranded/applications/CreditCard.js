@@ -20,7 +20,9 @@ const FORM_TITLE = {
   your_finances_form: "your_finances_form",
 
   optional_benefits_form: "optional_benefits_form",
+  number_of_transfers_form: "number_of_transfers_form",
   transfer_balance_1_form: "transfer_balance_1_form",
+  transfer_balance_2_form: "transfer_balance_2_form",
 
   section_five: "section_five",
 
@@ -57,6 +59,8 @@ class CreditCard extends React.Component {
       your_finances: false,
       optional_benefits: false,
       transfer: false,
+      number_of_transfers_1: false,
+      number_of_transfers_2: false,
       section_five: true,
 
       manual_address: false,
@@ -500,7 +504,26 @@ class CreditCard extends React.Component {
         }
       },
 
+      number_of_transfers_form: {
+        number_of_transfers: {
+          rules: {
+            required: { message: "Please tell us your residential status" }
+          }
+        }
+      },
+
       transfer_balance_1_form: {
+        card_number: {
+          rules: {
+            required: { message: "Please enter your card number" }
+          }
+        },
+        transfer_amount_pounds: {},
+        transfer_amount_pences: {},
+        terms: {}
+      },
+
+      transfer_balance_2_form: {
         card_number: {
           rules: {
             required: { message: "Please enter your card number" }
@@ -897,6 +920,24 @@ class CreditCard extends React.Component {
         }
         this.setState({ ...this.state, optional_benefits_form, transfer });
         return;
+      case FORM_TITLE.number_of_transfers_form:
+        const number_of_transfers_form = FormUpdater.update(
+          this.state.number_of_transfers_form,
+          e.target
+        );
+        let number_of_transfers_1,
+          number_of_transfers_2 = false;
+        if (e.target.id === "number_of_transfers" && e.target.value !== "") {
+          number_of_transfers_1 = true;
+          number_of_transfers_2 = e.target.value === "2" ? true : false;
+        }
+        this.setState({
+          ...this.state,
+          number_of_transfers_form,
+          number_of_transfers_1,
+          number_of_transfers_2
+        });
+        return;
       case FORM_TITLE.transfer_balance_1_form:
         const transfer_balance_1_form = FormUpdater.update(
           this.state.transfer_balance_1_form,
@@ -1066,6 +1107,25 @@ class CreditCard extends React.Component {
         );
         this.setState({ ...this.state, optional_benefits_form });
         return;
+      case FORM_TITLE.number_of_transfers_form:
+        const number_of_transfers_form = FormUpdater.update(
+          this.state.number_of_transfers_form,
+          e.target,
+          true
+        );
+        let number_of_transfers_1,
+          number_of_transfers_2 = false;
+        if (e.target.id === "number_of_transfers" && e.target.value !== "") {
+          number_of_transfers_1 = true;
+          number_of_transfers_2 = e.target.value === "2" ? true : false;
+        }
+        this.setState({
+          ...this.state,
+          number_of_transfers_form,
+          number_of_transfers_1,
+          number_of_transfers_2
+        });
+        return;
       case FORM_TITLE.transfer_balance_1_form:
         const transfer_balance_1_form = FormUpdater.update(
           this.state.transfer_balance_1_form,
@@ -1073,6 +1133,14 @@ class CreditCard extends React.Component {
           true
         );
         this.setState({ ...this.state, transfer_balance_1_form });
+        return;
+      case FORM_TITLE.transfer_balance_2_form:
+        const transfer_balance_2_form = FormUpdater.update(
+          this.state.transfer_balance_2_form,
+          e.target,
+          true
+        );
+        this.setState({ ...this.state, transfer_balance_2_form });
         return;
     }
   };
@@ -1343,27 +1411,36 @@ class CreditCard extends React.Component {
   render() {
     const { about_you_form } = this.state;
 
-    const { address_details_form } = this.state;
-    const { custom_address_details_form } = this.state;
-    const { residential_address_details_form } = this.state;
-    const { select_address_details_form } = this.state;
+    const {
+      address_details_form,
+      custom_address_details_form,
+      residential_address_details_form,
+      select_address_details_form
+    } = this.state;
 
-    const { correspondence_address_details_form } = this.state;
-    const { correspondence_custom_address_details_form } = this.state;
-    const { correspondence_residential_address_details_form } = this.state;
-    const { correspondence_select_address_details_form } = this.state;
+    const {
+      correspondence_address_details_form,
+      correspondence_custom_address_details_form,
+      correspondence_residential_address_details_form,
+      correspondence_select_address_details_form
+    } = this.state;
 
-    const { your_finances_form } = this.state;
-    const { direct_debit_form } = this.state;
+    const { your_finances_form, direct_debit_form } = this.state;
 
-    const { employer_address_details_form } = this.state;
-    const { employer_custom_address_details_form } = this.state;
-    const { employer_residential_address_details_form } = this.state;
-    const { employer_select_address_details_form } = this.state;
+    const {
+      employer_address_details_form,
+      employer_custom_address_details_form,
+      employer_residential_address_details_form,
+      employer_select_address_details_form,
+      income_and_outgoings_form
+    } = this.state;
 
-    const { income_and_outgoings_form } = this.state;
-
-    const { optional_benefits_form } = this.state;
+    const {
+      optional_benefits_form,
+      number_of_transfers_form,
+      transfer_balance_1_form,
+      transfer_balance_2_form
+    } = this.state;
 
     return (
       <div id="credit-card">
@@ -2300,13 +2377,74 @@ class CreditCard extends React.Component {
                         />
                       </RadioGroup>
                       <Collapse isOpen={this.state.transfer}>
-                        <Transfer
-                          title={"Transfer 1"}
-                          transferFrom={this.state.transfer_balance_1_form}
-                          fromTitle={FORM_TITLE.transfer_balance_1_form}
-                          onChange={this.onChange}
-                          onBlur={this.onBlur}
-                        />
+                        <p>
+                          <small>
+                            Please tell us how many transfers you would like to
+                            do
+                          </small>
+                        </p>
+                        <FormGroup>
+                          <DropDown
+                            subLabel="How many transfers would you like to do?"
+                            id="number_of_transfers"
+                            field="number_of_transfers"
+                            onChange={e =>
+                              this.onChange(
+                                FORM_TITLE.number_of_transfers_form,
+                                e
+                              )
+                            }
+                            onBlur={e =>
+                              this.onBlur(
+                                FORM_TITLE.number_of_transfers_form,
+                                e
+                              )
+                            }
+                            validation={
+                              number_of_transfers_form.number_of_transfers
+                            }
+                          >
+                            <option value="">(select one)</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                          </DropDown>
+                        </FormGroup>
+                        <Collapse isOpen={this.state.number_of_transfers_1}>
+                          <Transfer
+                            title={"Transfer 1"}
+                            transferFrom={transfer_balance_1_form}
+                            formTitle={FORM_TITLE.transfer_balance_1_form}
+                            onChange={this.onChange}
+                            onBlur={this.onBlur}
+                          />
+                        </Collapse>
+                        <Collapse isOpen={this.state.number_of_transfers_2}>
+                          <Transfer
+                            title={"Transfer 2"}
+                            transferFrom={transfer_balance_2_form}
+                            formTitle={FORM_TITLE.transfer_balance_2_form}
+                            onChange={this.onChange}
+                            onBlur={this.onBlur}
+                          />
+                        </Collapse>
+                        <p>Total amount: £</p>
+                        <FormGroup>
+                          <Check
+                            label="I have read and understood the Balance Transfer Terms and Conditions"
+                            id="terms"
+                            field="terms"
+                            onChange={e =>
+                              this.onChange(
+                                FORM_TITLE.transfer_balance_1_form,
+                                e
+                              )
+                            }
+                            onBlur={e =>
+                              this.onBlur(FORM_TITLE.transfer_balance_1_form, e)
+                            }
+                            validation={transfer_balance_1_form.terms}
+                          />
+                        </FormGroup>
                       </Collapse>
                     </FormGroup>
                     <FormGroup>
