@@ -14,6 +14,8 @@ import { Text, DropDown, Check, RadioGroup, Radio } from "@myie/interact-dom";
 import SectionHeader from "./SectionHeader";
 import AddressForm from "./AddressForm";
 import Transfer from "./Transfer";
+import KeepingInTouch from "./KeepingInTouch";
+import AnotherCardholder from "./AnotherCardholder"
 
 const FORM_TITLE = {
   about_you_form: "about_you_form",
@@ -23,6 +25,7 @@ const FORM_TITLE = {
   number_of_transfers_form: "number_of_transfers_form",
   transfer_balance_1_form: "transfer_balance_1_form",
   transfer_balance_2_form: "transfer_balance_2_form",
+  keeping_in_touch_form: "keeping_in_touch_form",
 
   section_five: "section_five",
 
@@ -55,12 +58,17 @@ class CreditCard extends React.Component {
 
     this.state = {
       about_you: true,
+
       address_details: false,
+
       your_finances: false,
+
       optional_benefits: false,
       transfer: false,
       number_of_transfers_1: false,
       number_of_transfers_2: false,
+      keeping_in_touch: false,
+
       section_five: true,
 
       manual_address: false,
@@ -531,6 +539,18 @@ class CreditCard extends React.Component {
         },
         transfer_amount_pounds: {},
         transfer_amount_pences: {}
+      },
+
+      keeping_in_touch_form: {
+        contact_method: {
+          rules: {}
+        },
+        products_and_services: {
+          rules: {}
+        },
+        selected_3rd_parties: {
+          rules: {}
+        }
       }
     };
   }
@@ -918,7 +938,18 @@ class CreditCard extends React.Component {
         if (e.target.id === "transfer_yes") {
           transfer = true;
         }
-        this.setState({ ...this.state, optional_benefits_form, transfer });
+
+        let keeping_in_touch = false;
+        if (e.target.id === "keep_touch_yes") {
+          keeping_in_touch = true;
+        }
+
+        this.setState({
+          ...this.state,
+          optional_benefits_form,
+          transfer,
+          keeping_in_touch
+        });
         return;
       case FORM_TITLE.number_of_transfers_form:
         const number_of_transfers_form = FormUpdater.update(
@@ -944,6 +975,13 @@ class CreditCard extends React.Component {
           e.target
         );
         this.setState({ ...this.state, transfer_balance_1_form });
+        return;
+      case FORM_TITLE.keeping_in_touch_form:
+        const keeping_in_touch_form = FormUpdater.update(
+          this.state.keeping_in_touch_form,
+          e.target
+        );
+        this.setState({ ...this.state, keeping_in_touch_form });
         return;
     }
   };
@@ -1105,7 +1143,22 @@ class CreditCard extends React.Component {
           e.target,
           true
         );
-        this.setState({ ...this.state, optional_benefits_form });
+        let transfer = false;
+        if (e.target.id === "transfer_yes") {
+          transfer = true;
+        }
+
+        let keeping_in_touch = false;
+        if (e.target.id === "keep_touch_yes") {
+          keeping_in_touch = true;
+        }
+
+        this.setState({
+          ...this.state,
+          optional_benefits_form,
+          transfer,
+          keeping_in_touch
+        });
         return;
       case FORM_TITLE.number_of_transfers_form:
         const number_of_transfers_form = FormUpdater.update(
@@ -1141,6 +1194,14 @@ class CreditCard extends React.Component {
           true
         );
         this.setState({ ...this.state, transfer_balance_2_form });
+        return;
+      case FORM_TITLE.keeping_in_touch_form:
+        const keeping_in_touch_form = FormUpdater.update(
+          this.state.keeping_in_touch_form,
+          e.target,
+          true
+        );
+        this.setState({ ...this.state, keeping_in_touch_form });
         return;
     }
   };
@@ -1439,7 +1500,8 @@ class CreditCard extends React.Component {
       optional_benefits_form,
       number_of_transfers_form,
       transfer_balance_1_form,
-      transfer_balance_2_form
+      transfer_balance_2_form,
+      keeping_in_touch_form
     } = this.state;
 
     return (
@@ -2486,6 +2548,9 @@ class CreditCard extends React.Component {
                           defaultChecked
                         />
                       </RadioGroup>
+                      <Collapse isOpen={true}>
+                        <AnotherCardholder />
+                      </Collapse>
                     </FormGroup>
                     <FormGroup>
                       <p>Keeping in touch</p>
@@ -2526,6 +2591,14 @@ class CreditCard extends React.Component {
                           defaultChecked
                         />
                       </RadioGroup>
+                      <Collapse isOpen={this.state.keeping_in_touch}>
+                        <KeepingInTouch
+                          keepTouchForm={keeping_in_touch_form}
+                          formTitle={FORM_TITLE.keeping_in_touch_form}
+                          onChange={this.onChange}
+                          onBlur={this.onBlur}
+                        />
+                      </Collapse>
                     </FormGroup>
                     <p>You must be a UK resident to apply for a card</p>
                     <FormGroup>
