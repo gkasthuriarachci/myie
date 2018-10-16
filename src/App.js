@@ -1,12 +1,9 @@
-import React, { Component } from 'react';
-import { Connect } from '@myie/interact-connect-dom';
+import React, { Component } from "react";
+import { Acquire } from "@myie/interact-acquire-dom";
 
 class App extends Component {
-
   render() {
-    return (
-      <Connect />
-    );
+    return <Acquire />;
   }
 }
 
