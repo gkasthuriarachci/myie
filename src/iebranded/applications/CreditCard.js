@@ -15,7 +15,7 @@ import SectionHeader from "./SectionHeader";
 import AddressForm from "./AddressForm";
 import Transfer from "./Transfer";
 import KeepingInTouch from "./KeepingInTouch";
-import AnotherCardholder from "./AnotherCardholder"
+import AnotherCardholder from "./AnotherCardholder";
 
 const FORM_TITLE = {
   about_you_form: "about_you_form",
@@ -25,6 +25,7 @@ const FORM_TITLE = {
   number_of_transfers_form: "number_of_transfers_form",
   transfer_balance_1_form: "transfer_balance_1_form",
   transfer_balance_2_form: "transfer_balance_2_form",
+  cardholder_form: "cardholder_form",
   keeping_in_touch_form: "keeping_in_touch_form",
 
   section_five: "section_five",
@@ -67,6 +68,7 @@ class CreditCard extends React.Component {
       transfer: false,
       number_of_transfers_1: false,
       number_of_transfers_2: false,
+      another_cardholder: false,
       keeping_in_touch: false,
 
       section_five: true,
@@ -541,6 +543,98 @@ class CreditCard extends React.Component {
         transfer_amount_pences: {}
       },
 
+      cardholder_form: {
+        title: {
+          rules: {
+            required: {
+              message: "Please enter the additional cardholder’s title"
+            }
+          }
+        },
+        first_name: {
+          rules: {
+            required: {
+              message: "Please enter the additional cardholder’s first name"
+            }
+          }
+        },
+        middle_name: {
+          rules: {}
+        },
+        last_name: {
+          rules: {
+            required: {
+              message: "Please enter the additional cardholder’s last name"
+            }
+          }
+        },
+        gender: {
+          rules: {
+            required: {
+              message: "Please tell us the additional cardholder’s gender"
+            }
+          }
+        },
+        b_day: {
+          rules: {
+            required: {
+              message:
+                "Please tell us the additional cardholder’s date of birth"
+            }
+          }
+        },
+        b_month: {
+          rules: {
+            required: {
+              message:
+                "Please tell us the additional cardholder’s date of birth"
+            }
+          }
+        },
+        b_year: {
+          rules: {
+            required: {
+              message:
+                "Please tell us the additional cardholder’s date of birth"
+            }
+          }
+        },
+        relationship: {
+          rules: {
+            required: {
+              message:
+                "Please tell us the additional cardholder’s relationship to you"
+            }
+          }
+        },
+        marital_status: {
+          rules: {
+            required: {
+              message:
+                "Please tell us the additional cardholder’s marital status"
+            }
+          }
+        },
+        nationality: {
+          rules: {
+            required: {
+              message: "Please tell us the additional cardholder’s nationality"
+            }
+          }
+        },
+        mobile_number: {
+          rules: {
+            required: {
+              message:
+                "Please enter the additional cardholder’s mobile phone number"
+            }
+          }
+        },
+        other_phone: {
+          rules: {}
+        }
+      },
+
       keeping_in_touch_form: {
         contact_method: {
           rules: {}
@@ -944,11 +1038,17 @@ class CreditCard extends React.Component {
           keeping_in_touch = true;
         }
 
+        let another_cardholder = false;
+        if (e.target.id === "another_holder_yes") {
+          another_cardholder = true;
+        }
+
         this.setState({
           ...this.state,
           optional_benefits_form,
           transfer,
-          keeping_in_touch
+          keeping_in_touch,
+          another_cardholder
         });
         return;
       case FORM_TITLE.number_of_transfers_form:
@@ -975,6 +1075,13 @@ class CreditCard extends React.Component {
           e.target
         );
         this.setState({ ...this.state, transfer_balance_1_form });
+        return;
+      case FORM_TITLE.cardholder_form:
+        const cardholder_form = FormUpdater.update(
+          this.state.cardholder_form,
+          e.target
+        );
+        this.setState({ ...this.state, cardholder_form });
         return;
       case FORM_TITLE.keeping_in_touch_form:
         const keeping_in_touch_form = FormUpdater.update(
@@ -1153,11 +1260,17 @@ class CreditCard extends React.Component {
           keeping_in_touch = true;
         }
 
+        let another_cardholder = false;
+        if (e.target.id === "another_holder_yes") {
+          another_cardholder = true;
+        }
+
         this.setState({
           ...this.state,
           optional_benefits_form,
           transfer,
-          keeping_in_touch
+          keeping_in_touch,
+          another_cardholder
         });
         return;
       case FORM_TITLE.number_of_transfers_form:
@@ -1194,6 +1307,14 @@ class CreditCard extends React.Component {
           true
         );
         this.setState({ ...this.state, transfer_balance_2_form });
+        return;
+      case FORM_TITLE.cardholder_form:
+        const cardholder_form = FormUpdater.update(
+          this.state.cardholder_form,
+          e.target,
+          true
+        );
+        this.setState({ ...this.state, cardholder_form });
         return;
       case FORM_TITLE.keeping_in_touch_form:
         const keeping_in_touch_form = FormUpdater.update(
@@ -1501,6 +1622,7 @@ class CreditCard extends React.Component {
       number_of_transfers_form,
       transfer_balance_1_form,
       transfer_balance_2_form,
+      cardholder_form,
       keeping_in_touch_form
     } = this.state;
 
@@ -2548,8 +2670,13 @@ class CreditCard extends React.Component {
                           defaultChecked
                         />
                       </RadioGroup>
-                      <Collapse isOpen={true}>
-                        <AnotherCardholder />
+                      <Collapse isOpen={this.state.another_cardholder}>
+                        <AnotherCardholder
+                          formTitle={FORM_TITLE.cardholder_form}
+                          cardholder_form={cardholder_form}
+                          onChange={this.onChange}
+                          onBlur={this.onBlur}
+                        />
                       </Collapse>
                     </FormGroup>
                     <FormGroup>
