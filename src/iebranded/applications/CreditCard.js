@@ -11,11 +11,14 @@ import {
 import { Form as FormUpdater, Validate } from "@myie/interact";
 import { Text, DropDown, Check, RadioGroup, Radio } from "@myie/interact-dom";
 
-import SectionHeader from "./SectionHeader";
-import AddressForm from "./AddressForm";
-import Transfer from "./Transfer";
-import KeepingInTouch from "./KeepingInTouch";
-import AnotherCardholder from "./AnotherCardholder";
+import Header from "./Components/Header";
+import SectionHeader from "./Components/SectionHeader";
+import SaveButtons from "./Components/SaveButtons";
+import AddressForm from "./Components/AddressForm";
+import Transfer from "./Components/Transfer";
+import KeepingInTouch from "./Components/KeepingInTouch";
+import AboutHolder from "./Components/AboutHolder";
+import AboutYou from "./Components/AboutYou";
 
 const FORM_TITLE = {
   about_you_form: "about_you_form",
@@ -1628,13 +1631,7 @@ class CreditCard extends React.Component {
 
     return (
       <div id="credit-card">
-        <h1>Credit Card application</h1>
-        <p>Please complete the following, it should only take a few minutes.</p>
-        <p> All information is required unless otherwise specified.</p>
-        <p>
-          During the application you can click <strong>Save for later</strong>{" "}
-          to store your details and then return and continue later.
-        </p>
+        <Header />
         {/* about_you_form */}
         <div>
           <SectionHeader
@@ -1673,271 +1670,16 @@ class CreditCard extends React.Component {
               <Form id="about_you_form" onSubmit={this.submit}>
                 <Row>
                   <Col sm={12} lg={6}>
-                    <FormGroup>
-                      <DropDown
-                        subLabel="Title"
-                        id="title"
-                        field="title"
-                        onChange={e =>
-                          this.onChange(FORM_TITLE.about_you_form, e)
-                        }
-                        onBlur={e => this.onBlur(FORM_TITLE.about_you_form, e)}
-                        validation={about_you_form.title}
-                      >
-                        <option value="">(Select one)</option>
-                        <option value="Mr.">Mr.</option>
-                        <option value="Mrs.">Mrs.</option>
-                        <option value="Ms.">Ms.</option>
-                        <option value="Dr.">Dr.</option>
-                        <option value="Rev.">Rev.</option>
-                        <option value="Sir">Sir</option>
-                        <option value="Dame">Dame</option>
-                        <option value="Lord">Lord</option>
-                        <option value="Lady">Lady</option>
-                        <option value="Captain">Captain</option>
-                      </DropDown>
-                    </FormGroup>
-                    <FormGroup>
-                      <Text
-                        subLabel="First name"
-                        id="first_name"
-                        field="first_name"
-                        onChange={e =>
-                          this.onChange(FORM_TITLE.about_you_form, e)
-                        }
-                        onBlur={e => this.onBlur(FORM_TITLE.about_you_form, e)}
-                        validation={about_you_form.first_name}
-                      />
-                    </FormGroup>
-                    <FormGroup>
-                      <Text
-                        subLabel="Middle name (optional)"
-                        id="middle_name"
-                        field="middle_name"
-                        onChange={e =>
-                          this.onChange(FORM_TITLE.about_you_form, e)
-                        }
-                        onBlur={e => this.onBlur(FORM_TITLE.about_you_form, e)}
-                        validation={about_you_form.middle_name}
-                      />
-                    </FormGroup>
-                    <FormGroup>
-                      <Text
-                        subLabel="Last name"
-                        id="last_name"
-                        field="last_name"
-                        onChange={e =>
-                          this.onChange(FORM_TITLE.about_you_form, e)
-                        }
-                        onBlur={e => this.onBlur(FORM_TITLE.about_you_form, e)}
-                        validation={about_you_form.last_name}
-                      />
-                    </FormGroup>
-                    <FormGroup>
-                      <Text
-                        subLabel="Any previous name (optional)"
-                        id="previous_name"
-                        field="previous_name"
-                        onChange={e =>
-                          this.onChange(FORM_TITLE.about_you_form, e)
-                        }
-                        onBlur={e => this.onBlur(FORM_TITLE.about_you_form, e)}
-                        validation={about_you_form.previous_name}
-                      />
-                    </FormGroup>
-                    <FormGroup>
-                      <DropDown
-                        subLabel="Gender"
-                        id="gender"
-                        field="gender"
-                        onChange={e =>
-                          this.onChange(FORM_TITLE.about_you_form, e)
-                        }
-                        onBlur={e => this.onBlur(FORM_TITLE.about_you_form, e)}
-                        validation={about_you_form.gender}
-                      >
-                        <option value="">(Select one)</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                      </DropDown>
-                    </FormGroup>
-                    <FormGroup>
-                      <ButtonGroup>
-                        <DropDown
-                          id="b_day"
-                          field="b_day"
-                          onChange={e =>
-                            this.onChange(FORM_TITLE.about_you_form, e)
-                          }
-                          onBlur={e =>
-                            this.onBlur(FORM_TITLE.about_you_form, e)
-                          }
-                          validation={about_you_form.b_day}
-                        >
-                          <option value="">Day</option>
-                          <option value="1">1</option>
-                        </DropDown>{" "}
-                        <DropDown
-                          id="b_month"
-                          field="b_month"
-                          onChange={e =>
-                            this.onChange(FORM_TITLE.about_you_form, e)
-                          }
-                          onBlur={e =>
-                            this.onBlur(FORM_TITLE.about_you_form, e)
-                          }
-                          validation={about_you_form.b_month}
-                        >
-                          <option value="">Month</option>
-                          <option value="1">1</option>
-                        </DropDown>{" "}
-                        <DropDown
-                          id="b_year"
-                          field="b_year"
-                          onChange={e =>
-                            this.onChange(FORM_TITLE.about_you_form, e)
-                          }
-                          onBlur={e =>
-                            this.onBlur(FORM_TITLE.about_you_form, e)
-                          }
-                          validation={about_you_form.b_year}
-                        >
-                          <option value="">Year</option>
-                          <option value="1">1</option>
-                        </DropDown>
-                      </ButtonGroup>
-                    </FormGroup>
-                    <FormGroup>
-                      <DropDown
-                        subLabel="Marital status"
-                        id="marital_status"
-                        field="marital_status"
-                        onChange={e =>
-                          this.onChange(FORM_TITLE.about_you_form, e)
-                        }
-                        onBlur={e => this.onBlur(FORM_TITLE.about_you_form, e)}
-                        validation={about_you_form.marital_status}
-                      >
-                        <option value="">(select one)</option>
-                        <option value="Single">Single</option>
-                        <option value="Married">Married</option>
-                        <option value="Divorced">Divorced</option>
-                        <option value="Civil partnership">
-                          Civil partnership
-                        </option>
-                      </DropDown>
-                    </FormGroup>
-                    <FormGroup>
-                      <DropDown
-                        subLabel="Your nationality"
-                        id="nationality"
-                        field="nationality"
-                        onChange={e =>
-                          this.onChange(FORM_TITLE.about_you_form, e)
-                        }
-                        onBlur={e => this.onBlur(FORM_TITLE.about_you_form, e)}
-                        validation={about_you_form.nationality}
-                      >
-                        <option value="">(select one)</option>
-                        <option value="British">British</option>
-                        <option value="Non British">Non British</option>
-                      </DropDown>
-                    </FormGroup>
-                    <p>You must be a UK resident to apply for a card</p>
-                    <FormGroup>
-                      <Check
-                        label="I confirm that I am a UK resident"
-                        id="resident"
-                        field="resident"
-                        onChange={e =>
-                          this.onChange(FORM_TITLE.about_you_form, e)
-                        }
-                        onBlur={e => this.onBlur(FORM_TITLE.about_you_form, e)}
-                        validation={about_you_form.resident}
-                      />
-                    </FormGroup>
-                    <h3>Contact details</h3>
-                    <p>Now enter your contact information.</p>
-                    <FormGroup>
-                      <Text
-                        subLabel="Mobile number"
-                        id="mobile"
-                        field="mobile"
-                        onChange={e =>
-                          this.onChange(FORM_TITLE.about_you_form, e)
-                        }
-                        onBlur={e => this.onBlur(FORM_TITLE.about_you_form, e)}
-                        validation={about_you_form.mobile}
-                      />
-                    </FormGroup>
-                    <FormGroup>
-                      <Text
-                        subLabel="Other phone number (optional)"
-                        id="other_phone"
-                        field="other_phone"
-                        onChange={e =>
-                          this.onChange(FORM_TITLE.about_you_form, e)
-                        }
-                        onBlur={e => this.onBlur(FORM_TITLE.about_you_form, e)}
-                        validation={about_you_form.other_phone}
-                      />
-                    </FormGroup>
-                    <FormGroup>
-                      <Text
-                        subLabel="Email address"
-                        id="email"
-                        field="email"
-                        onChange={e =>
-                          this.onChange(FORM_TITLE.about_you_form, e)
-                        }
-                        onBlur={e => this.onBlur(FORM_TITLE.about_you_form, e)}
-                        validation={about_you_form.email}
-                      />
-                    </FormGroup>
-                    <FormGroup>
-                      <Text
-                        subLabel="Confirm your email address"
-                        id="email_confirm"
-                        field="email_confirm"
-                        onChange={e =>
-                          this.onChange(FORM_TITLE.about_you_form, e)
-                        }
-                        onBlur={e => this.onBlur(FORM_TITLE.about_you_form, e)}
-                        validation={about_you_form.email_confirm}
-                      />
-                    </FormGroup>
-                    <p>
-                      <strong>
-                        We will use your email address to send you emails to
-                        send you information about your application and account,
-                        and to notify you when your online statement is ready to
-                        view.
-                      </strong>
-                    </p>
-
-                    <FormGroup>
-                      <Button
-                        id="about_you_continue"
-                        type="button"
-                        color="primary"
-                        onClick={() =>
-                          this.continue(FORM_TITLE.about_you_form, "submit")
-                        }
-                      >
-                        Continue
-                      </Button>{" "}
-                      <Button
-                        id="about_you_save"
-                        type="button"
-                        outline
-                        color="primary"
-                        onClick={() =>
-                          this.continue(FORM_TITLE.about_you_form, "save")
-                        }
-                      >
-                        Save for later
-                      </Button>{" "}
-                    </FormGroup>
+                    <AboutYou
+                      formTitle={FORM_TITLE.about_you_form}
+                      about_you_form={about_you_form}
+                      onBlur={this.onBlur}
+                      onChange={this.onChange}
+                    />
+                    <SaveButtons
+                      formTitle={FORM_TITLE.about_you_form}
+                      saveForm={this.continue}
+                    />
                   </Col>
                 </Row>
               </Form>
@@ -2106,32 +1848,10 @@ class CreditCard extends React.Component {
                         onBlur={this.onBlur}
                       />
                     </Collapse>
-                    <FormGroup>
-                      <Button
-                        id="address_details_continue"
-                        type="button"
-                        color="primary"
-                        onClick={() =>
-                          this.continue(
-                            FORM_TITLE.address_details_form,
-                            "submit"
-                          )
-                        }
-                      >
-                        Continue
-                      </Button>{" "}
-                      <Button
-                        id="address_details_save"
-                        type="button"
-                        outline
-                        color="primary"
-                        onClick={() =>
-                          this.continue(FORM_TITLE.address_details_form, "save")
-                        }
-                      >
-                        Save for later
-                      </Button>{" "}
-                    </FormGroup>
+                    <SaveButtons
+                      formTitle={FORM_TITLE.address_details_form}
+                      saveForm={this.continue}
+                    />
                   </Col>
                 </Row>
               </Form>
@@ -2474,30 +2194,10 @@ class CreditCard extends React.Component {
                         />
                       </FormGroup>
                     </Collapse>
-
-                    <FormGroup>
-                      <Button
-                        id="your_finances_continue"
-                        type="button"
-                        color="primary"
-                        onClick={() =>
-                          this.continue(FORM_TITLE.your_finances_form, "submit")
-                        }
-                      >
-                        Continue
-                      </Button>{" "}
-                      <Button
-                        id="your_finances_save"
-                        type="button"
-                        outline
-                        color="primary"
-                        onClick={() =>
-                          this.continue(FORM_TITLE.your_finances_form, "save")
-                        }
-                      >
-                        Save for later
-                      </Button>{" "}
-                    </FormGroup>
+                    <SaveButtons
+                      formTitle={FORM_TITLE.your_finances_form}
+                      saveForm={this.continue}
+                    />
                   </Col>
                 </Row>
               </Form>
@@ -2671,7 +2371,7 @@ class CreditCard extends React.Component {
                         />
                       </RadioGroup>
                       <Collapse isOpen={this.state.another_cardholder}>
-                        <AnotherCardholder
+                        <AboutHolder
                           formTitle={FORM_TITLE.cardholder_form}
                           cardholder_form={cardholder_form}
                           onChange={this.onChange}
@@ -2742,35 +2442,10 @@ class CreditCard extends React.Component {
                         validation={optional_benefits_form.send_by_email}
                       />
                     </FormGroup>
-                    <FormGroup>
-                      <Button
-                        id="optional_benefits_continue"
-                        type="button"
-                        color="primary"
-                        onClick={() =>
-                          this.continue(
-                            FORM_TITLE.optional_benefits_form,
-                            "submit"
-                          )
-                        }
-                      >
-                        Continue
-                      </Button>{" "}
-                      <Button
-                        id="optional_benefits_save"
-                        type="button"
-                        outline
-                        color="primary"
-                        onClick={() =>
-                          this.continue(
-                            FORM_TITLE.optional_benefits_form,
-                            "save"
-                          )
-                        }
-                      >
-                        Save for later
-                      </Button>{" "}
-                    </FormGroup>
+                    <SaveButtons
+                      formTitle={FORM_TITLE.optional_benefits_form}
+                      saveForm={this.continue}
+                    />
                   </Col>
                 </Row>
               </Form>
