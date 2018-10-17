@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { PrivateRoute, NoMatch } from "@myie/interact-dom";
-import { Accounts } from "@myie/interact-accounts-dom";
 import { Applications } from "@myie/interact-applications-dom";
 import { Authentication, AuthButton } from "@myie/interact-authentication-dom";
 import { Media, Container } from "reactstrap";
@@ -38,7 +37,6 @@ class Acquire extends Component {
                 <Switch>
                   <Route exact path="/" component={Home} />
                   <Route path="/authentication" component={Authentication} />
-                  <PrivateRoute path="/accounts" component={Accounts} />
                   <PrivateRoute path="/applications" component={Applications} />
                   <Route component={NoMatch} />
                 </Switch>

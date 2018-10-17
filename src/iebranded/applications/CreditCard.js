@@ -19,6 +19,7 @@ import Transfer from "./Components/Transfer";
 import KeepingInTouch from "./Components/KeepingInTouch";
 import AboutHolder from "./Components/AboutHolder";
 import AboutYou from "./Components/AboutYou";
+import AddressDetails from "./Components/AddressDetails";
 
 const FORM_TITLE = {
   about_you_form: "about_you_form",
@@ -1633,231 +1634,9 @@ class CreditCard extends React.Component {
       <div id="credit-card">
         <Header />
         {/* about_you_form */}
-        <div>
-          <SectionHeader
-            title={"2. About you"}
-            isOpen={!this.state.about_you && about_you_form.title.value}
-            onClick={() => this.toggle(FORM_TITLE.about_you_form)}
-          />
-          <Collapse isOpen={!this.state.about_you}>
-            <Row>
-              <Col>
-                <p>
-                  {about_you_form.title.value} {about_you_form.first_name.value}{" "}
-                  {about_you_form.middle_name.value}{" "}
-                  {about_you_form.last_name.value}
-                </p>
-                <p>{about_you_form.previous_name.value}</p>
-                <p>{about_you_form.gender.value}</p>
-                <p>
-                  {about_you_form.b_day.value} {about_you_form.b_month.value}{" "}
-                  {about_you_form.b_year.value}
-                </p>
-                <p>{about_you_form.marital_status.value}</p>
-                <p>{about_you_form.nationality.value}</p>
-              </Col>
-              <Col>
-                <h3>Contact details</h3>
-                <p>{about_you_form.mobile.value}</p>
-                <p>{about_you_form.other_phone.value}</p>
-                <p>{about_you_form.email.value}</p>
-              </Col>
-            </Row>
-          </Collapse>
-          <Collapse isOpen={this.state.about_you}>
-            <p>First we need to collect your basic personal details.</p>
-            <div>
-              <Form id="about_you_form" onSubmit={this.submit}>
-                <Row>
-                  <Col sm={12} lg={6}>
-                    <AboutYou
-                      formTitle={FORM_TITLE.about_you_form}
-                      about_you_form={about_you_form}
-                      onBlur={this.onBlur}
-                      onChange={this.onChange}
-                    />
-                    <SaveButtons
-                      formTitle={FORM_TITLE.about_you_form}
-                      saveForm={this.continue}
-                    />
-                  </Col>
-                </Row>
-              </Form>
-            </div>
-          </Collapse>
-        </div>
+        <AboutYou showAddressDetails={this.toggle} />
         {/* address details */}
-        <div>
-          <SectionHeader
-            title={"3. Address details"}
-            isOpen={
-              !this.state.address_details && address_details_form.postcode.value
-            }
-            onClick={() => this.toggle(FORM_TITLE.address_details_form)}
-          />
-          <Collapse isOpen={!this.state.address_details}>
-            <Row>
-              <Col>
-                <h4>Current address</h4>
-                <p>Flat</p>
-                <p>{custom_address_details_form.flat_number.value}</p>
-                <p>{address_details_form.house_number.value}</p>
-              </Col>
-              <Col>
-                <p>{address_details_form.house_name.value}</p>
-                <p>{custom_address_details_form.street.value}</p>
-                <p>{custom_address_details_form.city.value}</p>
-                <p>{custom_address_details_form.county.value}</p>
-                <p>{address_details_form.postcode.value}</p>
-                <p>
-                  {residential_address_details_form.residential_status.value}
-                </p>
-                <p>
-                  {residential_address_details_form.living_month.value}{" "}
-                  {residential_address_details_form.living_year.value}
-                </p>
-              </Col>
-            </Row>
-          </Collapse>
-          <Collapse isOpen={this.state.address_details}>
-            <p>
-              Please enter your address details. We support BFPO (British Forces
-              Post Office) too, so if you are a member of the British armed
-              forces please continue to complete this form.
-            </p>
-            <h2>Current address</h2>
-            <Collapse isOpen={this.state.noAddressSelected}>
-              <p>
-                Please complete your postcode and use the buttons below to find
-                your address or fill your address in manually.
-              </p>
-            </Collapse>
-            <div>
-              <Form>
-                <Row>
-                  <Col sm={12} lg={6}>
-                    <AddressForm
-                      manual_address={this.state.manual_address}
-                      select_address={this.state.select_address}
-                      residential_status={this.state.residential_status}
-                      address_details_form={address_details_form}
-                      custom_address_details_form={custom_address_details_form}
-                      residential_address_details_form={
-                        residential_address_details_form
-                      }
-                      select_address_details_form={select_address_details_form}
-                      fomrOne={FORM_TITLE.address_details_form}
-                      formTwo={FORM_TITLE.custom_address_details_form}
-                      fomrThree={FORM_TITLE.residential_address_details_form}
-                      formFour={FORM_TITLE.select_address_details_form}
-                      searchForAddress={this.searchForAddress}
-                      findAddress={this.findAddress}
-                      manualAddress={this.manualAddress}
-                      onChange={this.onChange}
-                      onBlur={this.onBlur}
-                    />
-                    <Collapse isOpen={this.state.correspondence_address}>
-                      <h2>Correspondence address</h2>
-                      <p>
-                        We will use your current address for correspondence
-                        (e.g. statements, updates).
-                      </p>
-                      <p>
-                        Do you want to set up a separate correspondence address?
-                      </p>
-                      <FormGroup>
-                        <RadioGroup
-                          validation={
-                            address_details_form.correspondence_address
-                          }
-                        >
-                          <Radio
-                            validation={
-                              address_details_form.correspondence_address
-                            }
-                            label={"Yes"}
-                            id="correspondence_address_yes"
-                            onChange={e =>
-                              this.onChange(FORM_TITLE.address_details_form, e)
-                            }
-                            onBlur={e =>
-                              this.onBlur(FORM_TITLE.address_details_form, e)
-                            }
-                            onClick={e =>
-                              this.onChange(FORM_TITLE.address_details_form, e)
-                            }
-                            value="yes"
-                            field="correspondence_address"
-                          />
-                          <Radio
-                            validation={
-                              address_details_form.correspondence_address
-                            }
-                            label={"No"}
-                            id="correspondence_address_no"
-                            onChange={e =>
-                              this.onChange(FORM_TITLE.address_details_form, e)
-                            }
-                            onBlur={e =>
-                              this.onBlur(FORM_TITLE.address_details_form, e)
-                            }
-                            onClick={e =>
-                              this.onChange(FORM_TITLE.address_details_form, e)
-                            }
-                            value="no"
-                            field="correspondence_address"
-                          />
-                        </RadioGroup>
-                      </FormGroup>
-                    </Collapse>
-                    <Collapse isOpen={this.state.show_correspondence_address}>
-                      <AddressForm
-                        manual_address={
-                          this.state.correspondence_manual_address
-                        }
-                        select_address={
-                          this.state.correspondence_select_address
-                        }
-                        residential_status={false}
-                        address_details_form={
-                          correspondence_address_details_form
-                        }
-                        custom_address_details_form={
-                          correspondence_custom_address_details_form
-                        }
-                        residential_address_details_form={
-                          correspondence_residential_address_details_form
-                        }
-                        select_address_details_form={
-                          correspondence_select_address_details_form
-                        }
-                        fomrOne={FORM_TITLE.correspondence_address_details_form}
-                        formTwo={
-                          FORM_TITLE.correspondence_custom_address_details_form
-                        }
-                        fomrThree={
-                          FORM_TITLE.correspondence_residential_address_details_form
-                        }
-                        formFour={
-                          FORM_TITLE.correspondence_select_address_details_form
-                        }
-                        searchForAddress={this.correspondencesearchForAddress}
-                        findAddress={this.correspondenceFindAddress}
-                        manualAddress={this.correspondenceManualAddress}
-                        onChange={this.onChange}
-                        onBlur={this.onBlur}
-                      />
-                    </Collapse>
-                    <SaveButtons
-                      formTitle={FORM_TITLE.address_details_form}
-                      saveForm={this.continue}
-                    />
-                  </Col>
-                </Row>
-              </Form>
-            </div>
-          </Collapse>
-        </div>
+        <AddressDetails />
         {/* your finances */}
         <div>
           <SectionHeader
@@ -2446,6 +2225,36 @@ class CreditCard extends React.Component {
                       formTitle={FORM_TITLE.optional_benefits_form}
                       saveForm={this.continue}
                     />
+
+                    <FormGroup>
+                      <Button
+                        id="optional_benefits_continue"
+                        type="button"
+                        color="primary"
+                        onClick={() =>
+                          this.continue(
+                            FORM_TITLE.optional_benefits_form,
+                            "submit"
+                          )
+                        }
+                      >
+                        Continue
+                      </Button>{" "}
+                      <Button
+                        id="optional_benefits_save"
+                        type="button"
+                        outline
+                        color="primary"
+                        onClick={() =>
+                          this.continue(
+                            FORM_TITLE.optional_benefits_form,
+                            "save"
+                          )
+                        }
+                      >
+                        Save for later
+                      </Button>{" "}
+                    </FormGroup>
                   </Col>
                 </Row>
               </Form>
