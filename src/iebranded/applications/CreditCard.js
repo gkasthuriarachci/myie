@@ -20,6 +20,7 @@ import KeepingInTouch from "./Components/KeepingInTouch";
 import AboutHolder from "./Components/AboutHolder";
 import AboutYou from "./Components/AboutYou";
 import AddressDetails from "./Components/AddressDetails";
+import Finances from "./Components/Finances";
 
 const FORM_TITLE = {
   about_you_form: "about_you_form",
@@ -1501,17 +1502,13 @@ class CreditCard extends React.Component {
 
   submitAll = submitSave => {
     let { about_you_form } = this.state;
-
     let { address_details_form } = this.state;
     let { custom_address_details_form } = this.state;
     let { residential_address_details_form } = this.state;
-
     let { your_finances_form } = this.state;
-
     let direct_debit_form = this.state.direct_debit_form;
     let employer_details_form = this.state.employer_details_form;
     let income_and_outgoings_form = this.state.income_and_outgoings_form;
-
     let { optional_benefits_form } = this.state;
 
     about_you_form = Validate.form(about_you_form);
@@ -1526,13 +1523,11 @@ class CreditCard extends React.Component {
     if (this.state.manual_address) {
       custom_address_details_form = Validate.form(custom_address_details_form);
     }
-
     if (this.state.residential_status) {
       residential_address_details_form = Validate.form(
         residential_address_details_form
       );
     }
-
     if (this.state.paying_by_debit) {
       direct_debit_form = Validate.form(direct_debit_form);
     }
@@ -1542,7 +1537,6 @@ class CreditCard extends React.Component {
     if (this.state.income_and_outgoings) {
       income_and_outgoings_form = Validate.form(income_and_outgoings_form);
     }
-
     if (submitSave === "save") {
       console.log(
         "form save.",
@@ -1638,351 +1632,7 @@ class CreditCard extends React.Component {
         {/* address details */}
         <AddressDetails />
         {/* your finances */}
-        <div>
-          <SectionHeader
-            title={"4. Your finances"}
-            isOpen={!this.state.your_finances}
-            onClick={() => this.toggle(FORM_TITLE.your_finances_form)}
-          />
-          <Collapse isOpen={!this.state.your_finances}>
-            <p>{your_finances_form.account_number.value}</p>
-          </Collapse>
-          <Collapse isOpen={this.state.your_finances}>
-            <h2>Your bank details</h2>
-            <div>
-              <Form>
-                <Row>
-                  <Col sm={12} lg={6}>
-                    <FormGroup>
-                      <Text
-                        subLabel="Account number"
-                        id="account_number"
-                        field="account_number"
-                        onChange={e =>
-                          this.onChange(FORM_TITLE.your_finances_form, e)
-                        }
-                        onBlur={e =>
-                          this.onBlur(FORM_TITLE.your_finances_form, e)
-                        }
-                        validation={your_finances_form.account_number}
-                      />
-                    </FormGroup>
-                    <p>
-                      Account not in your name?{" "}
-                      <a>Download Direct Debit instruction form</a>
-                    </p>
-                    <FormGroup>
-                      <p>Sort code</p>
-                      <ButtonGroup>
-                        <Text
-                          id="sort_code_1"
-                          field="sort_code_1"
-                          maxlength="2"
-                          onChange={e =>
-                            this.onChange(FORM_TITLE.your_finances_form, e)
-                          }
-                          onBlur={e =>
-                            this.onBlur(FORM_TITLE.your_finances_form, e)
-                          }
-                          validation={your_finances_form.sort_code_1}
-                        />
-                        {" - "}
-                        <Text
-                          id="sort_code_2"
-                          field="sort_code_2"
-                          maxlength="2"
-                          onChange={e =>
-                            this.onChange(FORM_TITLE.your_finances_form, e)
-                          }
-                          onBlur={e =>
-                            this.onBlur(FORM_TITLE.your_finances_form, e)
-                          }
-                          validation={your_finances_form.sort_code_2}
-                        />
-                        {" - "}
-                        <Text
-                          id="sort_code_3"
-                          field="sort_code_3"
-                          maxlength="2"
-                          onChange={e =>
-                            this.onChange(FORM_TITLE.your_finances_form, e)
-                          }
-                          onBlur={e =>
-                            this.onBlur(FORM_TITLE.your_finances_form, e)
-                          }
-                          validation={your_finances_form.sort_code_3}
-                        />
-                      </ButtonGroup>
-                    </FormGroup>
-                    <p>How long have you had this account?</p>
-                    <FormGroup>
-                      <ButtonGroup>
-                        <DropDown
-                          id="account_month"
-                          field="account_month"
-                          onChange={e =>
-                            this.onChange(FORM_TITLE.your_finances_form, e)
-                          }
-                          onBlur={e =>
-                            this.onBlur(FORM_TITLE.your_finances_form, e)
-                          }
-                          validation={your_finances_form.account_month}
-                        >
-                          <option value="">Month</option>
-                          <option value="1">1</option>
-                        </DropDown>{" "}
-                        <DropDown
-                          id="account_year"
-                          field="account_year"
-                          onChange={e =>
-                            this.onChange(FORM_TITLE.your_finances_form, e)
-                          }
-                          onBlur={e =>
-                            this.onBlur(FORM_TITLE.your_finances_form, e)
-                          }
-                          validation={your_finances_form.account_year}
-                        >
-                          <option value="">Year</option>
-                          <option value="1">1</option>
-                        </DropDown>
-                      </ButtonGroup>
-                    </FormGroup>
-                    <h2>Consider paying by Direct Debit</h2>
-                    <ol>
-                      <li>
-                        Cuts out the risk of bank charges for late payments.
-                      </li>
-                      <li>
-                        Saves time having to make manual payments online or by
-                        post each time.
-                      </li>
-                      <li>Reduces the possibility of forgetting to pay.</li>
-                      <li>
-                        It is the only payment method with a money-back
-                        guarantee.
-                      </li>
-                    </ol>
-                    <p>
-                      Would you like to pay your monthly statements by Direct
-                      Debit?
-                    </p>
-                    <FormGroup>
-                      <Button
-                        id="your_finances_form_yes"
-                        type="button"
-                        outline
-                        color="primary"
-                        onClick={() => this.togglePayingByDebit("yes")}
-                      >
-                        Yes
-                      </Button>{" "}
-                      <Button
-                        id="your_finances_form_no"
-                        type="button"
-                        color="primary"
-                        onClick={() => this.togglePayingByDebit("no")}
-                      >
-                        No
-                      </Button>{" "}
-                    </FormGroup>
-                    <Collapse isOpen={this.state.paying_by_debit}>
-                      <p>How much would you like to pay?</p>
-                      <FormGroup>
-                        <RadioGroup validation={direct_debit_form.pay_amount}>
-                          <Radio
-                            validation={direct_debit_form.pay_amount}
-                            label={"Minimum amount"}
-                            id="pay_minimum"
-                            onChange={e =>
-                              this.onChange(FORM_TITLE.direct_debit_form, e)
-                            }
-                            onBlur={e =>
-                              this.onBlur(FORM_TITLE.direct_debit_form, e)
-                            }
-                            onClick={e =>
-                              this.onChange(FORM_TITLE.direct_debit_form, e)
-                            }
-                            value="minimum"
-                            field="pay_amount"
-                          />
-                          <Radio
-                            validation={direct_debit_form.pay_amount}
-                            label={"Full balance"}
-                            id="pay_full"
-                            onChange={e =>
-                              this.onChange(FORM_TITLE.direct_debit_form, e)
-                            }
-                            onBlur={e =>
-                              this.onBlur(FORM_TITLE.direct_debit_form, e)
-                            }
-                            onClick={e =>
-                              this.onChange(FORM_TITLE.direct_debit_form, e)
-                            }
-                            value="full"
-                            field="pay_amount"
-                          />
-                        </RadioGroup>
-                      </FormGroup>
-                      <FormGroup>
-                        <Check
-                          label="I confirm that I am the owner of the above account and agree to our Terms and Conditions."
-                          id="owner_agree_terms"
-                          field="owner_agree_terms"
-                          onChange={e =>
-                            this.onChange(FORM_TITLE.direct_debit_form, e)
-                          }
-                          onBlur={e =>
-                            this.onBlur(FORM_TITLE.direct_debit_form, e)
-                          }
-                          validation={direct_debit_form.owner_agree_terms}
-                        />
-                      </FormGroup>
-                    </Collapse>
-                    <h2>Employment details</h2>
-                    <FormGroup>
-                      <DropDown
-                        subLabel="Employment status"
-                        id="employment_status"
-                        field="employment_status"
-                        onChange={e =>
-                          this.onChange(FORM_TITLE.your_finances_form, e)
-                        }
-                        onBlur={e =>
-                          this.onBlur(FORM_TITLE.your_finances_form, e)
-                        }
-                        validation={your_finances_form.employment_status}
-                      >
-                        <option value="">(select one)</option>
-                        <option value="Full-time employed">
-                          Full-time employed
-                        </option>
-                        <option value="Part-time employed">
-                          Part-time employed
-                        </option>
-                        <option value="Self-employed">Self-employed</option>
-                        <option value="Unemployed">Unemployed</option>
-                        <option value="Temporary">Temporary</option>
-                        <option value="Home maker">Home maker</option>
-                        <option value="Retired">Retired</option>
-                        <option value="Student">Student</option>
-                        <option value="Other">Other</option>
-                      </DropDown>
-                    </FormGroup>
-                    <Collapse isOpen={this.state.employer_details}>
-                      <h2>Employer details</h2>
-                      <AddressForm
-                        manual_address={this.state.employer_manual_address}
-                        select_address={this.state.employer_select_address}
-                        residential_status={
-                          this.state.employer_residential_status
-                        }
-                        address_details_form={employer_address_details_form}
-                        custom_address_details_form={
-                          employer_custom_address_details_form
-                        }
-                        residential_address_details_form={
-                          employer_residential_address_details_form
-                        }
-                        select_address_details_form={
-                          employer_select_address_details_form
-                        }
-                        fomrOne={FORM_TITLE.employer_address_details_form}
-                        formTwo={
-                          FORM_TITLE.employer_custom_address_details_form
-                        }
-                        fomrThree={
-                          FORM_TITLE.employer_residential_address_details_form
-                        }
-                        formFour={
-                          FORM_TITLE.employer_select_address_details_form
-                        }
-                        searchForAddress={this.employerSearchForAddress}
-                        findAddress={this.employerFindAddress}
-                        manualAddress={this.employerManualAddress}
-                        onChange={this.onChange}
-                        onBlur={this.onBlur}
-                      />
-                    </Collapse>
-                    <Collapse isOpen={this.state.income_and_outgoings}>
-                      <h2>Income and outgoings</h2>
-                      <FormGroup>
-                        <p>Your gross annual income (£)</p>
-                        <p>
-                          <small>
-                            Basic salary before tax (excluding bonuses /
-                            overtime), pensions, investments
-                          </small>
-                        </p>
-                        <Text
-                          id="annual_income"
-                          field="annual_income"
-                          onChange={e =>
-                            this.onChange(
-                              FORM_TITLE.income_and_outgoings_form,
-                              e
-                            )
-                          }
-                          onBlur={e =>
-                            this.onBlur(FORM_TITLE.income_and_outgoings_form, e)
-                          }
-                          validation={income_and_outgoings_form.annual_income}
-                        />
-                      </FormGroup>
-                      <FormGroup>
-                        <p>Your partner's gross annual income (£) (optional)</p>
-                        <p>
-                          <small>Before tax</small>
-                        </p>
-                        <Text
-                          id="partner_annual_income"
-                          field="partner_annual_income"
-                          onChange={e =>
-                            this.onChange(
-                              FORM_TITLE.income_and_outgoings_form,
-                              e
-                            )
-                          }
-                          onBlur={e =>
-                            this.onBlur(FORM_TITLE.income_and_outgoings_form, e)
-                          }
-                          validation={
-                            income_and_outgoings_form.partner_annual_income
-                          }
-                        />
-                      </FormGroup>
-                      <FormGroup>
-                        <p>Your monthly outgoings (£)</p>
-                        <p>
-                          <small>All your living costs</small>
-                        </p>
-                        <Text
-                          id="monthly_outgoings"
-                          field="monthly_outgoings"
-                          onChange={e =>
-                            this.onChange(
-                              FORM_TITLE.income_and_outgoings_form,
-                              e
-                            )
-                          }
-                          onBlur={e =>
-                            this.onBlur(FORM_TITLE.income_and_outgoings_form, e)
-                          }
-                          validation={
-                            income_and_outgoings_form.monthly_outgoings
-                          }
-                        />
-                      </FormGroup>
-                    </Collapse>
-                    <SaveButtons
-                      formTitle={FORM_TITLE.your_finances_form}
-                      saveForm={this.continue}
-                    />
-                  </Col>
-                </Row>
-              </Form>
-            </div>
-          </Collapse>
-        </div>
+        <Finances />
         {/* optional benefits */}
         <div>
           <SectionHeader

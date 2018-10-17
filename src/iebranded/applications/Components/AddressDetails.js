@@ -13,7 +13,7 @@ class AddressDetails extends React.Component {
     super(props);
 
     this.state = {
-      address_details: true,
+      address_details: false,
       address_details_form: {
         house_number: {
           rules: {}
@@ -157,41 +157,318 @@ class AddressDetails extends React.Component {
   }
 
   toggle = () => {
-    this.setState({ ...this.state, about_you: !this.state.about_you });
+    this.setState({
+      ...this.state,
+      address_details: !this.state.address_details
+    });
   };
 
-  onChange = e => {
-    const about_you_form = FormUpdater.update(
-      this.state.about_you_form,
-      e.target
-    );
-    this.setState({ ...this.state, about_you_form });
+  onChange = (selected_form, e) => {
+    // To do
+    // var a = {}
+    // a[selected_form] = FormUpdater.update(selected_form_obj, e.target)
+    // this.setState({ ...this.state, a })
+
+    switch (selected_form) {
+      case FORM_TITLE.address_details_form:
+        const address_details_form = FormUpdater.update(
+          this.state.address_details_form,
+          e.target
+        );
+
+        let show_correspondence_address = false;
+        if (
+          e.target.name === "correspondence_address" &&
+          e.target.value === "yes"
+        ) {
+          show_correspondence_address = true;
+        }
+
+        this.setState({
+          ...this.state,
+          address_details_form,
+          show_correspondence_address
+        });
+        return;
+      case FORM_TITLE.custom_address_details_form:
+        const custom_address_details_form = FormUpdater.update(
+          this.state.custom_address_details_form,
+          e.target
+        );
+        this.setState({ ...this.state, custom_address_details_form });
+        return;
+
+      case FORM_TITLE.correspondence_address_details_form:
+        const correspondence_address_details_form = FormUpdater.update(
+          this.state.correspondence_address_details_form,
+          e.target
+        );
+        this.setState({ ...this.state, correspondence_address_details_form });
+        return;
+      case FORM_TITLE.correspondence_custom_address_details_form:
+        const correspondence_custom_address_details_form = FormUpdater.update(
+          this.state.correspondence_custom_address_details_form,
+          e.target
+        );
+        this.setState({
+          ...this.state,
+          correspondence_custom_address_details_form
+        });
+        return;
+      case FORM_TITLE.correspondence_residential_address_details_form:
+        const correspondence_residential_address_details_form = FormUpdater.update(
+          this.state.correspondence_residential_address_details_form,
+          e.target
+        );
+        this.setState({
+          ...this.state,
+          correspondence_residential_address_details_form
+        });
+        return;
+      case FORM_TITLE.correspondence_select_address_details_form:
+        const correspondence_select_address_details_form = FormUpdater.update(
+          this.state.correspondence_select_address_details_form,
+          e.target
+        );
+        this.setState({
+          ...this.state,
+          correspondence_select_address_details_form
+        });
+        return;
+
+      case FORM_TITLE.residential_address_details_form:
+        const residential_address_details_form = FormUpdater.update(
+          this.state.residential_address_details_form,
+          e.target
+        );
+
+        let correspondence_address = false;
+        if (e.target.id === "living_year" && e.target.value !== "") {
+          correspondence_address = true;
+        }
+
+        this.setState({
+          ...this.state,
+          residential_address_details_form,
+          correspondence_address
+        });
+        return;
+    }
   };
 
-  onBlur = e => {
-    const about_you_form = FormUpdater.update(
-      this.state.about_you_form,
-      e.target,
-      true
-    );
-    this.setState({ ...this.state, about_you_form });
-    return;
+  onBlur = (selected_form, e) => {
+    // To do
+    // var a = {}
+    // a[selected_form] = FormUpdater.update(selected_form_obj, e.target)
+    // this.setState({ ...this.state, a })
+
+    switch (selected_form) {
+      case FORM_TITLE.address_details_form:
+        const address_details_form = FormUpdater.update(
+          this.state.address_details_form,
+          e.target,
+          true
+        );
+        this.setState({ ...this.state, address_details_form });
+        return;
+      case FORM_TITLE.custom_address_details_form:
+        const custom_address_details_form = FormUpdater.update(
+          this.state.custom_address_details_form,
+          e.target,
+          true
+        );
+        this.setState({ ...this.state, custom_address_details_form });
+        return;
+      case FORM_TITLE.residential_address_details_form:
+        const residential_address_details_form = FormUpdater.update(
+          this.state.residential_address_details_form,
+          e.target,
+          true
+        );
+        this.setState({ ...this.state, residential_address_details_form });
+        return;
+
+      case FORM_TITLE.correspondence_address_details_form:
+        const correspondence_address_details_form = FormUpdater.update(
+          this.state.correspondence_address_details_form,
+          e.target,
+          true
+        );
+        this.setState({ ...this.state, correspondence_address_details_form });
+        return;
+      case FORM_TITLE.correspondence_custom_address_details_form:
+        const correspondence_custom_address_details_form = FormUpdater.update(
+          this.state.correspondence_custom_address_details_form,
+          e.target,
+          true
+        );
+        this.setState({
+          ...this.state,
+          correspondence_custom_address_details_form
+        });
+        return;
+      case FORM_TITLE.correspondence_residential_address_details_form:
+        const correspondence_residential_address_details_form = FormUpdater.update(
+          this.state.correspondence_residential_address_details_form,
+          e.target,
+          true
+        );
+        this.setState({
+          ...this.state,
+          correspondence_residential_address_details_form
+        });
+        return;
+      case FORM_TITLE.correspondence_select_address_details_form:
+        const correspondence_select_address_details_form = FormUpdater.update(
+          this.state.correspondence_select_address_details_form,
+          e.target,
+          true
+        );
+        this.setState({
+          ...this.state,
+          correspondence_select_address_details_form
+        });
+        return;
+    }
+  };
+
+  continue = (section, submitSave) => {
+    let form = null;
+    if (section === FORM_TITLE.address_details_form) {
+      const address_details_form = Validate.form(
+        this.state.address_details_form
+      );
+      form = address_details_form;
+
+      let custom_address_details_form = this.state.custom_address_details_form;
+      let residential_address_details_form = this.state
+        .residential_address_details_form;
+
+      let correspondence_address_details_form = this.state
+        .correspondence_address_details_form;
+      let correspondence_custom_address_details_form = this.state
+        .correspondence_custom_address_details_form;
+
+      let noAddressSelected = false;
+
+      if (this.state.manual_address) {
+        custom_address_details_form = Validate.form(
+          custom_address_details_form
+        );
+        if (!custom_address_details_form.approved) {
+          form.approved = false;
+        }
+      }
+
+      if (this.state.residential_status) {
+        residential_address_details_form = Validate.form(
+          residential_address_details_form
+        );
+        if (!residential_address_details_form.approved) {
+          form.approved = false;
+        }
+      }
+
+      if (
+        this.state.correspondence_address &&
+        this.state.show_correspondence_address
+      ) {
+        correspondence_address_details_form = Validate.form(
+          correspondence_address_details_form
+        );
+        if (!correspondence_address_details_form.approved) {
+          form.approved = false;
+        }
+
+        if (this.state.correspondence_manual_address) {
+          correspondence_custom_address_details_form = Validate.form(
+            correspondence_custom_address_details_form
+          );
+          if (!correspondence_custom_address_details_form.approved) {
+            form.approved = false;
+          }
+        }
+      }
+
+      if (!this.state.select_address && form.approved) {
+        form.approved = false;
+        noAddressSelected = true;
+      }
+
+      this.setState({
+        ...this.state,
+        address_details_form,
+        custom_address_details_form,
+        residential_address_details_form,
+        correspondence_address_details_form,
+        correspondence_custom_address_details_form,
+        noAddressSelected
+      });
+    }
+
+    if (submitSave === "save") {
+      this.submitSection(section);
+      console.log(section, " form save.", form);
+    } else if (submitSave === "submit" && form.approved) {
+      this.submitSection(section);
+      console.log(section, " form submit.", form);
+    } else {
+      console.log(section, " form invalid!", form);
+    }
+  };
+
+  manualAddress = () => {
+    const manual_address = true;
+    const select_address = false;
+    const residential_status = true;
+    this.setState({
+      ...this.state,
+      manual_address,
+      select_address,
+      residential_status
+    });
+  };
+
+  searchForAddress = () => {
+    const manual_address = false;
+    const select_address = false;
+    const residential_status = false;
+    this.setState({
+      ...this.state,
+      manual_address,
+      select_address,
+      residential_status
+    });
+  };
+
+  findAddress = () => {
+    const address_details_form = Validate.form(this.state.address_details_form);
+    this.setState({ ...this.state, address_details_form });
+
+    if (address_details_form.approved) {
+      const manual_address = false;
+      const select_address = true;
+      const noAddressSelected = false;
+      this.setState({ manual_address, select_address, noAddressSelected });
+    } else {
+      const noAddressSelected = true;
+      this.setState({ ...this.state, noAddressSelected });
+    }
   };
 
   // To do: remove formTitle
   continue = (formTitle, submitSave) => {
-    const about_you_form = Validate.form(this.state.about_you_form);
-    this.setState({ ...this.state, about_you_form });
+    const address_details_form = Validate.form(this.state.address_details_form);
+    this.setState({ ...this.state, address_details_form });
 
     if (submitSave === "save") {
       this.toggle();
-      this.props.showAddressDetails(FORM_TITLE.address_details_form);
-      console.log(" AboutYou save.", about_you_form);
-    } else if (submitSave === "submit" && about_you_form.approved) {
+      console.log(" AboutYou save.", address_details_form);
+    } else if (submitSave === "submit" && address_details_form.approved) {
       this.toggle();
-      console.log(" AboutYou submit.", about_you_form);
+      console.log(" AboutYou submit.", address_details_form);
     } else {
-      console.log(" AboutYou invalid!", about_you_form);
+      console.log(" AboutYou invalid!", address_details_form);
     }
   };
 

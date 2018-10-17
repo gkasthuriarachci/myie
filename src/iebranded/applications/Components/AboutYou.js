@@ -12,7 +12,7 @@ class AboutYou extends React.Component {
     super(props);
 
     this.state = {
-      about_you: true,
+      about_you: false,
       about_you_form: {
         title: {
           rules: {
