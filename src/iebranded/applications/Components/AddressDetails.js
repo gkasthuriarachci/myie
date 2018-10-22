@@ -3,6 +3,8 @@ import { Row, Col, Form, FormGroup, ButtonGroup, Collapse } from "reactstrap";
 import { Form as FormUpdater, Validate } from "@myie/interact";
 import { Radio, RadioGroup } from "@myie/interact-dom";
 
+import { toggle } from "../stateFunctions";
+
 import { FORM_TITLE } from "../Constents/common";
 import SectionHeader from "./SectionHeader";
 import SaveButtons from "./SaveButtons";
@@ -156,12 +158,9 @@ class AddressDetails extends React.Component {
     };
   }
 
-  toggle = () => {
-    this.setState({
-      ...this.state,
-      address_details: !this.state.address_details
-    });
-  };
+  toggle(value) {
+    this.setState(toggle(this.state, value));
+  }
 
   onChange = (selected_form, e) => {
     // To do
@@ -462,10 +461,10 @@ class AddressDetails extends React.Component {
     this.setState({ ...this.state, address_details_form });
 
     if (submitSave === "save") {
-      this.toggle();
+      this.toggle("address_details");
       console.log(" AboutYou save.", address_details_form);
     } else if (submitSave === "submit" && address_details_form.approved) {
-      this.toggle();
+      this.toggle("address_details");
       console.log(" AboutYou submit.", address_details_form);
     } else {
       console.log(" AboutYou invalid!", address_details_form);
@@ -490,7 +489,7 @@ class AddressDetails extends React.Component {
           isOpen={
             !this.state.address_details && address_details_form.postcode.value
           }
-          onClick={() => this.toggle(FORM_TITLE.address_details_form)}
+          onClick={() => this.toggle("address_details")}
         />
         <Collapse isOpen={!this.state.address_details}>
           <Row>
