@@ -158,9 +158,9 @@ class AddressDetails extends React.Component {
     };
   }
 
-  toggle(value) {
-    this.setState(toggle(this.state, value));
-  }
+  toggle = () => {
+    this.setState(toggle(this.state, "address_details"));
+  };
 
   onChange = (selected_form, e) => {
     // To do
@@ -461,10 +461,10 @@ class AddressDetails extends React.Component {
     this.setState({ ...this.state, address_details_form });
 
     if (submitSave === "save") {
-      this.toggle("address_details");
+      this.toggle();
       console.log(" AboutYou save.", address_details_form);
     } else if (submitSave === "submit" && address_details_form.approved) {
-      this.toggle("address_details");
+      this.toggle();
       console.log(" AboutYou submit.", address_details_form);
     } else {
       console.log(" AboutYou invalid!", address_details_form);
@@ -486,10 +486,8 @@ class AddressDetails extends React.Component {
       <div>
         <SectionHeader
           title={"3. Address details"}
-          isOpen={
-            !this.state.address_details && address_details_form.postcode.value
-          }
-          onClick={() => this.toggle("address_details")}
+          isOpen={!this.state.address_details}
+          onClick={() => this.toggle()}
         />
         <Collapse isOpen={!this.state.address_details}>
           <Row>

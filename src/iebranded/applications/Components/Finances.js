@@ -10,7 +10,7 @@ import {
 } from "reactstrap";
 import { Form as FormUpdater, Validate } from "@myie/interact";
 import { Text, DropDown, Check, Radio, RadioGroup } from "@myie/interact-dom";
-
+import { toggle } from "../stateFunctions";
 import { FORM_TITLE } from "../Constents/common";
 import SectionHeader from "./SectionHeader";
 import SaveButtons from "./SaveButtons";
@@ -207,7 +207,7 @@ class Finances extends React.Component {
   }
 
   toggle = () => {
-    this.setState({ ...this.state, your_finances: !this.state.your_finances });
+    this.setState(toggle(this.state, "your_finances"));
   };
 
   employerManualAddress = () => {
@@ -483,7 +483,7 @@ class Finances extends React.Component {
         <SectionHeader
           title={"4. Your finances"}
           isOpen={!this.state.your_finances}
-          onClick={() => this.toggle(FORM_TITLE.your_finances_form)}
+          onClick={() => this.toggle()}
         />
         <Collapse isOpen={!this.state.your_finances}>
           <p>{your_finances_form.account_number.value}</p>

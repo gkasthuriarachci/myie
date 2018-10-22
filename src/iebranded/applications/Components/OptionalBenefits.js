@@ -2,7 +2,7 @@ import React from "react";
 import { Row, Col, Form, FormGroup, Button, Collapse } from "reactstrap";
 import { Form as FormUpdater, Validate } from "@myie/interact";
 import { DropDown, Check, Radio, RadioGroup } from "@myie/interact-dom";
-
+import { toggle } from "../stateFunctions";
 import { FORM_TITLE } from "../Constents/common";
 import SectionHeader from "./SectionHeader";
 import SaveButtons from "./SaveButtons";
@@ -172,11 +172,8 @@ class OptionalBenefits extends React.Component {
     };
   }
 
-  toggle = section => {
-    this.setState({
-      ...this.state,
-      optional_benefits: !this.state.optional_benefits
-    });
+  toggle = () => {
+    this.setState(toggle(this.state, "optional_benefits"));
   };
 
   onChange = (selected_form, e) => {
@@ -372,7 +369,7 @@ class OptionalBenefits extends React.Component {
         <SectionHeader
           title={"5. Optional benefits and keeping in touch"}
           isOpen={!this.state.optional_benefits}
-          onClick={() => this.toggle(FORM_TITLE.optional_benefits_form)}
+          onClick={() => this.toggle()}
         />
         <Collapse isOpen={!this.state.optional_benefits}>
           <p>{optional_benefits_form.transfer.value}</p>

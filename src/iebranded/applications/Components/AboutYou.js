@@ -2,7 +2,7 @@ import React from "react";
 import { Row, Col, Form, FormGroup, ButtonGroup, Collapse } from "reactstrap";
 import { Form as FormUpdater, Validate } from "@myie/interact";
 import { Text, DropDown, Check } from "@myie/interact-dom";
-
+import { toggle } from "../stateFunctions";
 import { FORM_TITLE } from "../Constents/common";
 import SectionHeader from "./SectionHeader";
 import SaveButtons from "./SaveButtons";
@@ -102,7 +102,7 @@ class AboutYou extends React.Component {
   }
 
   toggle = () => {
-    this.setState({ ...this.state, about_you: !this.state.about_you });
+    this.setState(toggle(this.state, "about_you"));
   };
 
   onChange = e => {
